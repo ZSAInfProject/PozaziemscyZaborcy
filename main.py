@@ -1,4 +1,6 @@
 import pygame
+import player
+import bullet
 
 pygame.init()
 
@@ -7,11 +9,10 @@ pygame.display.set_caption('Pozaziemscy zaborcy')
 
 x = 255
 
-y_rect = 450
-x_rect = 100
-velocity = 0
-
 gameExit = False
+bulletDisplay = False
+
+player = player.Player()
 
 while not gameExit:
     for event in pygame.event.get():
@@ -20,19 +21,27 @@ while not gameExit:
             gameExit = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                velocity -= 0.2
+                player.move(-0.2)
             if event.key == pygame.K_d:
-                velocity += 0.2
+                player.move(0.2)
+            if event.key == pygame.K_o:
+                bul = bullet.Bullet(player.p_x)
+                bulletDisplay = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
-                velocity = 0
+                player.move(0)
             if event.key == pygame.K_d:
-                velocity = 0
+                player.move(0)
 
-    x_rect += velocity
+    player.p_x += player.velocity
 
     gameDisplay.fill((x, x, x))
-    pygame.draw.rect(gameDisplay, (0, 0, 0), [x_rect, y_rect, 30, 30])
+    pygame.draw.rect(gameDisplay, (0, 0, 0), [player.p_x, player.p_y, 30, 30])
+
+    if bulletDisplay == True:
+        bul.move()
+        pygame.draw.rect(gameDisplay, (0, 0, 0), [bul.x, bul.y, 2, 10])
+
     pygame.display.update()
 
 
