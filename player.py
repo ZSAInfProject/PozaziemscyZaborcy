@@ -8,7 +8,6 @@ class Player:
 
     def check_walls(self):
         if (round(self.p_x, 0) == 0 and self.velocity < 0) or (round(self.p_x, 0) == 470 and self.velocity > 0):
-            print('Tak, to jest sciana')
             return False
         else:
             return True
