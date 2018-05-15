@@ -4,7 +4,7 @@ class Bullet:
     y = 450
 
     def __init__(self, pos):
-        self.x = pos
+        self.x = pos + 15
         self.speed = 0.1
 
     def move(self):

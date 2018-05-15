@@ -33,12 +33,13 @@ while not gameExit:
             if event.key == pygame.K_d:
                 player.move(0)
 
-    player.p_x += player.velocity
+    if player.check_walls():
+        player.p_x += player.velocity
 
     gameDisplay.fill((x, x, x))
     pygame.draw.rect(gameDisplay, (0, 0, 0), [player.p_x, player.p_y, 30, 30])
 
-    if bulletDisplay == True:
+    if bulletDisplay:
         bul.move()
         pygame.draw.rect(gameDisplay, (0, 0, 0), [bul.x, bul.y, 2, 10])
 
