@@ -23,8 +23,6 @@ while not gameExit:
                 velocity -= 0.2
             if event.key == pygame.K_d:
                 velocity += 0.2
-            if event.key == pygame.K_o:
-                global bul
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
                 velocity = 0
