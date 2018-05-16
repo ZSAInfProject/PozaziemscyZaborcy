@@ -15,6 +15,5 @@ class EnemyShip(ship.Ship):
             return True
 
     def check_bullet(self, bull):
-        print(bull.y)
-        if bull.y == self.s_y + 30:
+        if bull.y == self.s_y + 30 and (self.s_x <= bull.x <= self.s_x + 30):
             return True
