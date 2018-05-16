@@ -1,0 +1,27 @@
+klasa abstrakcyjna Ship
+    klasa dziedzicząca PlayerShip
+    klasa dziedzicząca EnemyShip
+        ruch pionowy przy kolizji ze ścianą
+        wystrzeliwanie pocisków w stosunku do pozycji gracza
+        kolizja z graczem
+    klasa dziedzicząca PowerUpShip
+        ruch poziomy
+        kolizja z pociskiem gracza
+        powerup (np zwiększenie prędkości ataku gracza)
+
+klasa Bullet
+    kolizja z przeciwnikami i ścianami
+
+chiptune w tle
+
+menu
+    start
+    exit
+
+GUI
+    licznik punktów
+    (licznik hp)
+
+End condition
+    Win condition - eliminacja wrogów / osiągnięcie x punktów
+    Lose condition - strata całego hp / przeciwnicy osiagają najniższe y
