@@ -24,17 +24,17 @@ def main():
                 gameExit = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    player.move(-1)
+                    player.addVelocity(-1)
                 if event.key == pygame.K_d:
-                    player.move(1)
+                    player.addVelocity(1)
                 if event.key == pygame.K_o:
                     bul = bullet.Bullet(player.p_x)
                     bulletDisplay = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
-                    player.move(1)
+                    player.addVelocity(1)
                 if event.key == pygame.K_d:
-                    player.move(-1)
+                    player.addVelocity(-1)
 
         if player.check_walls():
             player.p_x += player.velocity

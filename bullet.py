@@ -1,5 +1,5 @@
 class Bullet:
-    speed = 0
+    velocity = 0
     x = 0
     y = 450
 
@@ -8,4 +8,4 @@ class Bullet:
         self.speed = 2
 
     def move(self):
-        self.y -= self.speed
+        self.y -= self.velocity
