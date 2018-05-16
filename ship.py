@@ -3,9 +3,9 @@ class Ship:
     p_y = 0
     velocity = 0
 
-    def __init__(self, p_x, p_y):
-        self.p_x = p_x
-        self.p_y = p_y
+    def __init__(self, given_x, given_y):
+        self.p_x = given_x
+        self.p_y = given_y
 
-    def addVelocity(self, velocity):
-        self.velocity += velocity
+    def addVelocity(self, force):
+        self.velocity += force

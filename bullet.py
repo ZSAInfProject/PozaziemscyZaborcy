@@ -5,7 +5,7 @@ class Bullet:
 
     def __init__(self, pos):
         self.x = pos + 15
-        self.speed = 2
+        self.velocity = 2
 
     def move(self):
         self.y -= self.velocity
