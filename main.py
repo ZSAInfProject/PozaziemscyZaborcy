@@ -1,52 +1,58 @@
 import pygame
-import player
+import playerShip
 import bullet
 
-pygame.init()
 
-gameDisplay = pygame.display.set_mode((500, 500))
-pygame.display.set_caption('Pozaziemscy zaborcy')
+def main():
+    pygame.init()
 
-clock = pygame.time.Clock()
-x = 255
+    gameDisplay = pygame.display.set_mode((500, 500))
+    pygame.display.set_caption('Pozaziemscy zaborcy')
 
-gameExit = False
-bulletDisplay = False
+    clock = pygame.time.Clock()
+    x = 255
 
-player = player.Player()
+    gameExit = False
+    bulletDisplay = False
 
-while not gameExit:
-    for event in pygame.event.get():
-        print(event)
-        if event.type == pygame.QUIT:
-            gameExit = True
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                player.move(-1)
-            if event.key == pygame.K_d:
-                player.move(1)
-            if event.key == pygame.K_o:
-                bul = bullet.Bullet(player.p_x)
-                bulletDisplay = True
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_a:
-                player.move(1)
-            if event.key == pygame.K_d:
-                player.move(-1)
+    player = playerShip.PlayerShip()
 
-    if player.check_walls():
-        player.p_x += player.velocity
+    while not gameExit:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                gameExit = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    player.move(-1)
+                if event.key == pygame.K_d:
+                    player.move(1)
+                if event.key == pygame.K_o:
+                    bul = bullet.Bullet(player.p_x)
+                    bulletDisplay = True
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_a:
+                    player.move(1)
+                if event.key == pygame.K_d:
+                    player.move(-1)
 
-    gameDisplay.fill((x, x, x))
-    pygame.draw.rect(gameDisplay, (0, 0, 0), [player.p_x, player.p_y, 30, 30])
+        if player.check_walls():
+            player.p_x += player.velocity
 
-    if bulletDisplay:
-        bul.move()
-        pygame.draw.rect(gameDisplay, (0, 0, 0), [bul.x, bul.y, 2, 10])
+        gameDisplay.fill((x, x, x))
+        pygame.draw.rect(gameDisplay, (0, 0, 0), [player.p_x, player.p_y, 30, 30])
 
-    pygame.display.update()
-    clock.tick(120)
-    clock.get_fps()
+        if bulletDisplay:
+            bul.move()
+            pygame.draw.rect(gameDisplay, (0, 0, 0), [bul.x, bul.y, 2, 10])
 
-pygame.quit()
-quit()
+        pygame.display.update()
+        clock.tick(120)
+        clock.get_fps()
+
+    pygame.quit()
+    quit()
+
+
+if __name__ == "__main__":
+    main()
