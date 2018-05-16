@@ -7,6 +7,7 @@ class EnemyShip(ship.Ship):
     def __init__(self, given_x=250, given_y=50):
         self.s_x = given_x
         self.s_y = given_y
+        self.velocity = 1
 
     def check_walls(self):
         if (round(self.s_x, 0) == 0 and self.velocity < 0) or (round(self.s_x, 0) == 470 and self.velocity > 0):

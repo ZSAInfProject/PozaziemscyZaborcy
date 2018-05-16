@@ -48,6 +48,11 @@ def main():
 
         if showEnemy:
             pygame.draw.rect(gameDisplay, (0, 0, 0), [enemy.s_x, enemy.s_y, 30, 30])
+            if enemy.check_walls():
+                enemy.s_x += enemy.velocity
+            else:
+                enemy.s_y += 20
+                enemy.velocity *= -1
 
         if bulletDisplay:
             bul.move()
