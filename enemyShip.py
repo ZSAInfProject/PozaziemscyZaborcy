@@ -1,9 +1,10 @@
 import ship
+import bullet
 
 
-class PlayerShip(ship.Ship):
+class EnemyShip(ship.Ship):
 
-    def __init__(self, given_x=250, given_y=450):
+    def __init__(self, given_x=250, given_y=50):
         self.s_x = given_x
         self.s_y = given_y
 
@@ -11,4 +12,9 @@ class PlayerShip(ship.Ship):
         if (round(self.s_x, 0) == 0 and self.velocity < 0) or (round(self.s_x, 0) == 470 and self.velocity > 0):
             return False
         else:
+            return True
+
+    def check_bullet(self, bull):
+        print(bull.y)
+        if bull.y == self.s_y + 30:
             return True
