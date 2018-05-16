@@ -29,9 +29,9 @@ while not gameExit:
                 bulletDisplay = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
-                player.move(0)
+                player.move(0.2)
             if event.key == pygame.K_d:
-                player.move(0)
+                player.move(-0.2)
 
     if player.check_walls():
         player.p_x += player.velocity
