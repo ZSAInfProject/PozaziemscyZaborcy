@@ -43,8 +43,8 @@ def main():
                     player.addVelocity(-1)
                 if event.key == pygame.K_d:
                     player.addVelocity(1)
-                if event.key == pygame.K_o and bulletDisplay == False:
-                    bul = bullet.Bullet(player.s_x)
+                if event.key == pygame.K_RETURN and not bulletDisplay:
+                    bul = player.shoot()
                     bulletDisplay = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
@@ -56,9 +56,7 @@ def main():
         gameDisplay.fill((255, 255, 255))
 
         # Check player condition
-        if showPlayer:
-            if player.check_walls():
-                player.s_x += player.velocity
+        if playerShip.show_player(player):
             pygame.draw.rect(gameDisplay, (0, 0, 0), [player.s_x, player.s_y, 30, 30])
 
         # Check enemy condition
@@ -83,7 +81,7 @@ def main():
             if bul.y == 0:
                 del bul
                 bulletDisplay = False
-            elif showEnemy == True:
+            elif showEnemy:
                 if enemy.check_bullet(bul):
                     del bul
                     del enemy

@@ -3,9 +3,9 @@ class Bullet:
     x = 0
     y = 450
 
-    def __init__(self, pos):
+    def __init__(self, pos, force):
         self.x = pos + 15
-        self.velocity = 2
+        self.velocity = force
 
     def move(self):
         self.y -= self.velocity

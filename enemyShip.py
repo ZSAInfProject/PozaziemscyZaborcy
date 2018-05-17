@@ -1,4 +1,5 @@
 import ship
+import bullet
 
 
 class EnemyShip(ship.Ship):
@@ -19,7 +20,8 @@ class EnemyShip(ship.Ship):
             return True
 
     def check_player(self, player):
-        print('ok')
         if (self.s_y + 30 >= player.s_y >= self.s_y) and (self.s_x + 30 >= player.s_x >= self.s_x):
-            print('not ok')
             return True
+
+    def shoot(self):
+        return bullet.Bullet(self.s_x, -2)

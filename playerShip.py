@@ -1,4 +1,11 @@
 import ship
+import bullet
+
+
+def show_player(player):
+    if player.check_walls():
+        player.s_x += player.velocity
+    return True
 
 
 class PlayerShip(ship.Ship):
@@ -12,3 +19,6 @@ class PlayerShip(ship.Ship):
             return False
         else:
             return True
+
+    def shoot(self):
+        return bullet.Bullet(self.s_x, 2)
