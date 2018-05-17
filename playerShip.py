@@ -3,7 +3,7 @@ import ship
 
 class PlayerShip(ship.Ship):
 
-    def __init__(self, given_x=250, given_y=450):
+    def __init__(self, given_x=220, given_y=450):
         self.s_x = given_x
         self.s_y = given_y
 

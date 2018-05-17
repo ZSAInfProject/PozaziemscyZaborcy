@@ -3,7 +3,7 @@ import ship
 
 class EnemyShip(ship.Ship):
 
-    def __init__(self, given_x=150, given_y=400):
+    def __init__(self, given_x=220, given_y=50):
         self.s_x = given_x
         self.s_y = given_y
         self.velocity = 1
