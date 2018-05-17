@@ -1,5 +1,4 @@
 import ship
-import bullet
 
 
 class EnemyShip(ship.Ship):

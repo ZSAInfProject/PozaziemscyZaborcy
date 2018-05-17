@@ -9,14 +9,18 @@ def main():
 
     gameDisplay = pygame.display.set_mode((500, 500))
     pygame.display.set_caption('Pozaziemscy zaborcy')
+    myfont = pygame.font.SysFont('monospace', 15)
 
     clock = pygame.time.Clock()
     x = 255
 
+    label = myfont.render("Points: 0", 1, (0, 0, 0))
 
     gameExit = False
     bulletDisplay = False
     showEnemy = True
+
+    points = 0
 
     player = playerShip.PlayerShip()
     enemy = enemyShip.EnemyShip()
@@ -66,7 +70,10 @@ def main():
                     del enemy
                     bulletDisplay = False
                     showEnemy = False
+                    points += 10
 
+        label = myfont.render("Points: " + str(points), 1, (0, 0, 0))
+        gameDisplay.blit(label, (10, 10))
         pygame.display.update()
         clock.tick(120)
         clock.get_fps()
