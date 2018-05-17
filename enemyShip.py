@@ -3,7 +3,7 @@ import ship
 
 class EnemyShip(ship.Ship):
 
-    def __init__(self, given_x=250, given_y=50):
+    def __init__(self, given_x=150, given_y=400):
         self.s_x = given_x
         self.s_y = given_y
         self.velocity = 1
@@ -16,4 +16,10 @@ class EnemyShip(ship.Ship):
 
     def check_bullet(self, bull):
         if bull.y == self.s_y + 30 and (self.s_x <= bull.x <= self.s_x + 30):
+            return True
+
+    def check_player(self, player):
+        print('ok')
+        if (self.s_y + 30 >= player.s_y >= self.s_y) and (self.s_x + 30 >= player.s_x >= self.s_x):
+            print('not ok')
             return True

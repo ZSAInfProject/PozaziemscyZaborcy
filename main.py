@@ -19,6 +19,7 @@ def main():
     gameExit = False
     bulletDisplay = False
     showEnemy = True
+    showPlayer = True
 
     points = 0
 
@@ -44,11 +45,11 @@ def main():
                 if event.key == pygame.K_d:
                     player.addVelocity(-1)
 
-        if player.check_walls():
-            player.s_x += player.velocity
+        if showPlayer:
+            if player.check_walls():
+                player.s_x += player.velocity
 
         gameDisplay.fill((x, x, x))
-        pygame.draw.rect(gameDisplay, (0, 0, 0), [player.s_x, player.s_y, 30, 30])
 
         if showEnemy:
             pygame.draw.rect(gameDisplay, (0, 0, 0), [enemy.s_x, enemy.s_y, 30, 30])
@@ -57,6 +58,9 @@ def main():
             else:
                 enemy.s_y += 20
                 enemy.velocity *= -1
+
+        if showPlayer:
+            pygame.draw.rect(gameDisplay, (0, 0, 0), [player.s_x, player.s_y, 30, 30])
 
         if bulletDisplay:
             bul.move()
@@ -71,6 +75,15 @@ def main():
                     bulletDisplay = False
                     showEnemy = False
                     points += 10
+                    continue
+
+        if showEnemy:
+            if enemy.check_player(player):
+                del player
+                del enemy
+                showEnemy = False
+                showPlayer = False
+                points -= 10
 
         label = myfont.render("Points: " + str(points), 1, (0, 0, 0))
         gameDisplay.blit(label, (10, 10))
