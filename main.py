@@ -5,7 +5,9 @@ import enemyShip
 
 def main():
     # Initialize pygame module
+    pygame.mixer.pre_init(44100, 16, 2, 4096)
     pygame.init()
+    pygame.mixer.init()
 
     screen_x = 500
     screen_y = 500
@@ -16,6 +18,7 @@ def main():
     gameDisplay = pygame.display.set_mode((screen_x, screen_y))
     pygame.display.set_caption('Pozaziemscy zaborcy')
     myfont = pygame.font.SysFont('monospace', 15)
+    Music = pygame.mixer.Sound('./sounds/codex.wav')
 
     # Set timer
     clock = pygame.time.Clock()
@@ -38,6 +41,9 @@ def main():
 
     # Main game loop
     while not gameExit:
+
+        Music.play()
+
         # Event-catching loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
