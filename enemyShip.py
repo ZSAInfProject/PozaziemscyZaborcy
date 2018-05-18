@@ -1,6 +1,6 @@
+from pygame import draw
 import ship
 import bullet
-from pygame import draw
 
 
 class EnemyShip(ship.Ship):
@@ -14,10 +14,6 @@ class EnemyShip(ship.Ship):
         if (round(self.s_x, 0) == 0 and self.velocity < 0) or (round(self.s_x, 0) == screen_x-width and self.velocity > 0):
             return False
         else:
-            return True
-
-    def check_bullet(self, bull, width):
-        if bull.y == self.s_y + width and (self.s_x <= bull.x <= self.s_x + width):
             return True
 
     def check_player(self, player, width):

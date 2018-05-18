@@ -9,3 +9,7 @@ class Ship:
 
     def addVelocity(self, force):
         self.velocity += force
+
+    def check_bullet(self, bullet, width):
+        if (self.s_y <= bullet.y <= self.s_y + width) and (self.s_x <= bullet.x <= self.s_x + width):
+            return True

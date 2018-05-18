@@ -15,7 +15,8 @@ def main():
     # Set basic elements
     gameDisplay = pygame.display.set_mode((screen_x, screen_y))
     pygame.display.set_caption('Pozaziemscy zaborcy')
-    myfont = pygame.font.SysFont('monospace', 15)
+
+    # Set music
     pygame.mixer.music.load('./sounds/codex.mp3')
     pygame.mixer.music.play()
 
@@ -23,15 +24,15 @@ def main():
     clock = pygame.time.Clock()
 
     # Set font
+    myfont = pygame.font.SysFont('monospace', 15)
     label = myfont.render("Points: 0", 1, (0, 0, 0))
 
     # Set booleans
     gameExit = False
-    bulletDisplay = False
-    showEnemy = True
 
     # Set variables
     points = 0
+    bullets = [None]
 
     # Set starting objects
     entities = []
@@ -50,9 +51,8 @@ def main():
                     entities[0].addVelocity(-1)
                 if event.key == pygame.K_d:
                     entities[0].addVelocity(1)
-                if event.key == pygame.K_RETURN and not bulletDisplay:
-                    bul = entities[0].shoot()
-                    bulletDisplay = True
+                if event.key == pygame.K_RETURN and bullets[0] is None:
+                    bullets[0] = entities[0].shoot()
                 if event.key == pygame.K_q:
                     gameExit = True
             if event.type == pygame.KEYUP:
@@ -64,30 +64,27 @@ def main():
         # Fill screen with white color
         gameDisplay.fill((255, 255, 255))
 
-        # Check player condition
+        # Draw player
         entities[0].draw(gameDisplay, screen_x, width)
-        # Check enemy condition
-        if showEnemy:
-            entities[1].draw(gameDisplay, screen_x, width)
-            if entities[1].check_player(entities[0], width):
-                del entities[1]
-                showEnemy = False
+
+        # Draw ememies
+        for enemy in range(1, len(entities)):
+            entities[enemy].draw(gameDisplay, screen_x, width)
+            if entities[enemy].check_player(entities[0], width):
+                del entities[enemy]
                 points -= 10
 
         # Check bullet condition
-        if bulletDisplay:
-            bul.move()
-            pygame.draw.rect(gameDisplay, (0, 0, 0), [bul.x, bul.y, 2, 10])
-            if bul.y == 0:
-                del bul
-                bulletDisplay = False
-            elif showEnemy:
-                if entities[1].check_bullet(bul, width):
-                    del bul
-                    del entities[1]
-                    bulletDisplay = False
-                    showEnemy = False
-                    points += 10
+        for bullet in range(len(bullets)):
+            if bullets[bullet] is not None:
+                bulletExists, entityExists, points = bullets[bullet].draw(gameDisplay, screen_y, entities, width, points)
+                if not entityExists:
+                    continue
+                if not bulletExists:
+                    if bullet > 1:
+                        del bullets[bullet]
+                    else:
+                        bullets[bullet] = None
 
         # Update display, maintain stable framerate
         label = myfont.render("Points: " + str(points), 1, (0, 0, 0))
