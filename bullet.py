@@ -15,7 +15,6 @@ class Bullet:
         self.y -= self.velocity
 
     def draw(self, gameDisplay, screen_y, entities, width, points):  # tych argumentow jest troche duzo...
-        entityExists = True
         for entity in range(len(entities)):
             self.move()
             if entities[entity].check_bullet(self, width):  # powinnismy rozrozniac width gracza i wroga, chyba?
@@ -33,4 +32,4 @@ class Bullet:
                 self.exists = False
             if self.exists:
                 draw.rect(gameDisplay, (0, 0, 0), [self.x, self.y, 2, 10])
-        return self.exists, entityExists, points
+        return self.exists, points
