@@ -4,7 +4,7 @@ from pygame import draw
 class Bullet:
     velocity = 0
     x = 0
-    y = 449  # ma tak być, zeby nie kolidowal z graczem (wiem, idealne rozwiazanie problemu)
+    y = 450
     exists = True
 
     def __init__(self, pos, force):
@@ -17,6 +17,7 @@ class Bullet:
     def draw(self, gameDisplay, screen_y, entities, width, points):  # tych argumentow jest troche duzo...
         entityExists = True
         for entity in range(len(entities)):
+            self.move()
             if entities[entity].check_bullet(self, width):  # powinnismy rozrozniac width gracza i wroga, chyba?
                 self.exists = False
                 if self.velocity > 0:
@@ -31,6 +32,5 @@ class Bullet:
             elif self.y <= 0 or self.y >= screen_y:
                 self.exists = False
             if self.exists:
-                self.move()
                 draw.rect(gameDisplay, (0, 0, 0), [self.x, self.y, 2, 10])
         return self.exists, entityExists, points
