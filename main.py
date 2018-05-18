@@ -1,6 +1,5 @@
 import pygame
 import playerShip
-import bullet
 import enemyShip
 
 
@@ -23,14 +22,16 @@ def main():
     gameExit = False
     bulletDisplay = False
     showEnemy = True
-    showPlayer = True
 
     # Set variables
     points = 0
 
     # Set starting objects
-    player = playerShip.PlayerShip()
-    enemy = enemyShip.EnemyShip()
+    entities = []
+    entities.append(playerShip.PlayerShip())
+    #player = playerShip.PlayerShip()
+    entities.append(enemyShip.EnemyShip())
+    # enemy = enemyShip.EnemyShip()
 
     # Main game loop
     while not gameExit:
@@ -40,38 +41,31 @@ def main():
                 gameExit = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    player.addVelocity(-1)
+                    entities[0].addVelocity(-1)
                 if event.key == pygame.K_d:
-                    player.addVelocity(1)
+                    entities[0].addVelocity(1)
                 if event.key == pygame.K_RETURN and not bulletDisplay:
-                    bul = player.shoot()
+                    bul = entities[0].shoot()
                     bulletDisplay = True
+                if event.key == pygame.K_q:
+                    gameExit = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
-                    player.addVelocity(1)
+                    entities[0].addVelocity(1)
                 if event.key == pygame.K_d:
-                    player.addVelocity(-1)
+                    entities[0].addVelocity(-1)
 
         # Fill screen with white color
         gameDisplay.fill((255, 255, 255))
 
         # Check player condition
-        if playerShip.show_player(player):
-            pygame.draw.rect(gameDisplay, (0, 0, 0), [player.s_x, player.s_y, 30, 30])
-
+        entities[0].draw(gameDisplay)
         # Check enemy condition
         if showEnemy:
-            pygame.draw.rect(gameDisplay, (0, 0, 0), [enemy.s_x, enemy.s_y, 30, 30])
-            if enemy.check_walls():
-                enemy.s_x += enemy.velocity
-            else:
-                enemy.s_y += 20
-                enemy.velocity *= -1
-            if enemy.check_player(player):
-                del player
-                del enemy
+            entities[1].draw(gameDisplay)
+            if entities[1].check_player(entities[0]):
+                del entities[1]
                 showEnemy = False
-                showPlayer = False
                 points -= 10
 
         # Check bullet condition
@@ -82,13 +76,12 @@ def main():
                 del bul
                 bulletDisplay = False
             elif showEnemy:
-                if enemy.check_bullet(bul):
+                if entities[1].check_bullet(bul):
                     del bul
-                    del enemy
+                    del entities[1]
                     bulletDisplay = False
                     showEnemy = False
                     points += 10
-                    continue
 
         # Update display, maintain stable framerate
         label = myfont.render("Points: " + str(points), 1, (0, 0, 0))

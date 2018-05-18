@@ -1,5 +1,6 @@
 import ship
 import bullet
+from pygame import draw
 
 
 class EnemyShip(ship.Ship):
@@ -25,3 +26,11 @@ class EnemyShip(ship.Ship):
 
     def shoot(self):
         return bullet.Bullet(self.s_x, -2)
+
+    def draw(self, gameDisplay):
+        draw.rect(gameDisplay, (0, 0, 0), [self.s_x, self.s_y, 30, 30])
+        if self.check_walls():
+            self.s_x += self.velocity
+        else:
+            self.s_y += 20
+            self.velocity *= -1
