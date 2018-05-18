@@ -7,8 +7,13 @@ def main():
     # Initialize pygame module
     pygame.init()
 
+    screen_x = 500
+    screen_y = 500
+
+    width = 30
+
     # Set basic elements
-    gameDisplay = pygame.display.set_mode((500, 500))
+    gameDisplay = pygame.display.set_mode((screen_x, screen_y))
     pygame.display.set_caption('Pozaziemscy zaborcy')
     myfont = pygame.font.SysFont('monospace', 15)
 
@@ -29,9 +34,7 @@ def main():
     # Set starting objects
     entities = []
     entities.append(playerShip.PlayerShip())
-    #player = playerShip.PlayerShip()
     entities.append(enemyShip.EnemyShip())
-    # enemy = enemyShip.EnemyShip()
 
     # Main game loop
     while not gameExit:
@@ -59,11 +62,11 @@ def main():
         gameDisplay.fill((255, 255, 255))
 
         # Check player condition
-        entities[0].draw(gameDisplay)
+        entities[0].draw(gameDisplay, screen_x, width)
         # Check enemy condition
         if showEnemy:
-            entities[1].draw(gameDisplay)
-            if entities[1].check_player(entities[0]):
+            entities[1].draw(gameDisplay, screen_x, width)
+            if entities[1].check_player(entities[0], width):
                 del entities[1]
                 showEnemy = False
                 points -= 10
@@ -76,7 +79,7 @@ def main():
                 del bul
                 bulletDisplay = False
             elif showEnemy:
-                if entities[1].check_bullet(bul):
+                if entities[1].check_bullet(bul, width):
                     del bul
                     del entities[1]
                     bulletDisplay = False
