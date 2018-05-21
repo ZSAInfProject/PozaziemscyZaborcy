@@ -1,4 +1,4 @@
-from pygame import draw
+from pygame import draw #do usunięcia na koniec
 from math import ceil
 import enemyShip
 

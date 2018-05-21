@@ -2,7 +2,6 @@
 
 import pygame
 import playerShip
-import enemyShip
 import enemyField
 
 
@@ -40,7 +39,6 @@ def main():
     # Set starting objects
     entities = []
     entities.append(playerShip.PlayerShip(width))
-    # entities.append(enemyShip.EnemyShip(width))
     field = enemyField.EnemyField(screen_x, width)
     entities = field.fillWithEnemies(entities)
 
