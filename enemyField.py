@@ -76,9 +76,9 @@ class EnemyField:
         if len(entities) > 1:  # update pola field'a
             min_x, max_x, min_y, max_y = self.findEntityExtremes(entities)
             self.startX = min_x - self.offset_x
-            self.fieldWidth = round(max_x - self.startX + entities[1].width) + 2 * self.offset_x
+            self.fieldWidth = round(max_x - self.startX + entities[1].width) + self.offset_x
             self.startY = min_y - self.offset_y
-            self.fieldHeight = round(max_y - self.startY + entities[1].width) + 2 * self.offset_y
+            self.fieldHeight = round(max_y - self.startY + entities[1].width) + self.offset_y
         if self.checkWalls(screen_x, gameDisplay):
             self.startX += self.velocity
             for entity in range(1, len(entities)):
