@@ -41,10 +41,8 @@ def main():
     entities = []
     entities.append(playerShip.PlayerShip(width))
     # entities.append(enemyShip.EnemyShip(width))
-    eF = enemyField.EnemyField(gameDisplay, screen_x, width)
-    entities = eF.fillWithEnemies(entities)
-    for entity in entities:
-        print(entity.s_x)
+    field = enemyField.EnemyField(screen_x, width)
+    entities = field.fillWithEnemies(entities)
 
     # Main game loop
     while not gameExit:
@@ -74,12 +72,16 @@ def main():
         # Draw player
         entities[0].draw(gameDisplay, screen_x)
 
+        # Draw field
+        field.draw(screen_x, gameDisplay, entities)
+
         # Draw ememies
         for enemy in range(1, len(entities)):
-            entities[enemy].draw(gameDisplay, screen_x)
+            entities[enemy].draw(gameDisplay)
             if entities[enemy].check_player(entities[0]):
                 del entities[enemy]
                 points -= 10
+                break
 
         # Check bullet condition
         for bullet in range(len(bullets)):

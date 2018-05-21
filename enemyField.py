@@ -10,11 +10,12 @@ class EnemyField:
     fieldHeight = 200
     enemyWidth = 0
     enemyHeight = 30
+    velocity = 0.65
 
-    def __init__(self, gameDisplay, screen_x, width):
+    def __init__(self, screen_x, width):
         self.fieldWidth = screen_x-100
         self.enemyWidth = width
-        draw.rect(gameDisplay, (255, 0, 0), [self.startX, self.startY, self.fieldWidth, self.fieldHeight])
+
 
     def howManyEnemies(self):
         remainder_x = self.fieldWidth % self.enemyWidth
@@ -32,3 +33,21 @@ class EnemyField:
             entities.append(enemyShip.EnemyShip(self.enemyWidth, fieldOffset, self.startY))
             fieldOffset += 2*self.enemyWidth
         return entities
+
+    def checkWalls(self, screen_x, gameDisplay):
+        #draw.rect(gameDisplay, (255, 0, 0), [self.startX, self.startY, self.fieldWidth, self.fieldHeight])
+        if (round(self.startX, 0) == 0 and self.velocity < 0) or (round(self.startX + self.fieldWidth, 0) == screen_x and self.velocity > 0):
+            return False
+        else:
+            return True
+
+    def draw(self, screen_x, gameDisplay, entities):
+        if self.checkWalls(screen_x, gameDisplay):
+            self.startX += self.velocity
+            for entity in range(1, len(entities)):
+                entities[entity].move(self.velocity, 0)
+        else:
+            self.startY += 20
+            self.velocity *= -1
+            for entity in range(1, len(entities)):
+                entities[entity].move(self.velocity, 20)
