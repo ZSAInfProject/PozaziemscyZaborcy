@@ -12,6 +12,11 @@ klasa abstrakcyjna Ship
 klasa Bullet
     kolizja z przeciwnikami i ścianami
 
+klasa enemyField
+    metoda licząca ilu enemies zmieści się w field, przyjmująca wielkości enemy i odstęp między nimi
+    metoda tworząca w field enemies (fill), automatycznie dodająca ich do przyjmowanej listy entities
+    metoda wykrywająca kolizję ze ścianą, przestawiając wszyatkich enemies na nowe pozycje i zmieniająca ich vel * -1
+
 chiptune w tle
 
 menu

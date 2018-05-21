@@ -3,6 +3,7 @@
 import pygame
 import playerShip
 import enemyShip
+import enemyField
 
 
 def main():
@@ -38,8 +39,12 @@ def main():
 
     # Set starting objects
     entities = []
-    entities.append(playerShip.PlayerShip())
-    entities.append(enemyShip.EnemyShip())
+    entities.append(playerShip.PlayerShip(width))
+    # entities.append(enemyShip.EnemyShip(width))
+    eF = enemyField.EnemyField(gameDisplay, screen_x, width)
+    entities = eF.fillWithEnemies(entities)
+    for entity in entities:
+        print(entity.s_x)
 
     # Main game loop
     while not gameExit:
@@ -67,12 +72,12 @@ def main():
         gameDisplay.fill((255, 255, 255))
 
         # Draw player
-        entities[0].draw(gameDisplay, screen_x, width)
+        entities[0].draw(gameDisplay, screen_x)
 
         # Draw ememies
         for enemy in range(1, len(entities)):
-            entities[enemy].draw(gameDisplay, screen_x, width)
-            if entities[enemy].check_player(entities[0], width):
+            entities[enemy].draw(gameDisplay, screen_x)
+            if entities[enemy].check_player(entities[0]):
                 del entities[enemy]
                 points -= 10
 
@@ -91,7 +96,6 @@ def main():
         gameDisplay.blit(label, (10, 10))
         pygame.display.update()
         clock.tick(120)
-        clock.get_fps()
 
     # Exit game
     pygame.quit()

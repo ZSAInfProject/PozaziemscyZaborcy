@@ -15,12 +15,12 @@ class Bullet:
         self.y -= self.velocity
 
     def draw(self, gameDisplay, screen_y, entities, width, points):  # tych argumentow jest troche duzo...
-        for entity in range(len(entities)):
-            self.move()
+        self.move()
+        for entity in range(len(entities)):  # bez range sie krzaczy przy usuwaniu entity (24 linia)
+            # tutaj zmienia sie poziom trudnosci
             if entities[entity].check_bullet(self, width):  # powinnismy rozrozniac width gracza i wroga, chyba?
                 self.exists = False
                 if self.velocity > 0:
-                    entityExists = False
                     del entities[entity]
                     points += 10
                 elif self.velocity < 0:
