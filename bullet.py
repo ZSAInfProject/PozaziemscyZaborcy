@@ -23,6 +23,7 @@ class Bullet:
                 if self.velocity > 0:
                     del entities[entity]
                     points += 10
+                    break
                 elif self.velocity < 0:
                     points -= 10
                     print('game over')

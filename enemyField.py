@@ -32,13 +32,3 @@ class EnemyField:
             entities.append(enemyShip.EnemyShip(self.enemyWidth, fieldOffset, self.startY))
             fieldOffset += 2*self.enemyWidth
         return entities
-
-
-'''
-            if adversary == 1:
-                entities.append(enemyShip.EnemyShip(self.enemyWidth, fieldOffset, self.startY))
-                fieldOffset += 
-            elif adversary == howMany_x:
-                entities.append(enemyShip.EnemyShip(self.enemyWidth, self.startX + self.fieldWidth - self.enemyWidth - offset_x, self.startY))
-            else:
-'''
