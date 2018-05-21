@@ -81,7 +81,7 @@ def main():
             if bullets[bullet] is not None:
                 bulletExists, points = bullets[bullet].draw(gameDisplay, screen_y, entities, width, points)
                 if not bulletExists:
-                    if bullet > 1:
+                    if bullet >= 1:
                         del bullets[bullet]
                     else:
                         bullets[bullet] = None
