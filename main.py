@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 
 import pygame
-import mainGame
+import main_game
 
 pygame.init()
 
 
 def main():
 
-    mainGame.game_loop()
+    main_game.game_loop()
     pygame.quit()
     quit()
 

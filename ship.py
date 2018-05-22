@@ -8,9 +8,9 @@ class Ship:
         self.s_x = given_x
         self.s_y = given_y
 
-    def addVelocity(self, force):
+    def add_velocity(self, force):
         self.velocity += force
 
     def check_bullet(self, bullet, width):
-        if (self.s_y <= bullet.y <= self.s_y + width) and (self.s_x <= bullet.x <= self.s_x + width):
+        if (self.s_y <= bullet.y_pos <= self.s_y + width) and (self.s_x <= bullet.x_pos <= self.s_x + width):
             return True

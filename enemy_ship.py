@@ -18,9 +18,9 @@ class EnemyShip(ship.Ship):
     def shoot(self):
         return bullet.Bullet(self.s_x, -2)
 
-    def draw(self, gameDisplay):
-        draw.rect(gameDisplay, (0, 0, 0), [self.s_x, self.s_y, self.width, self.width])
+    def draw(self, game_display):
+        draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.width])
 
-    def move(self, velocity, addY):
+    def move(self, velocity, add_y):
         self.s_x += velocity
-        self.s_y += addY
+        self.s_y += add_y

@@ -1,6 +1,6 @@
 import pygame
-import playerShip
-import enemyField
+import player_ship
+import enemy_field
 
 
 class Game:
@@ -9,7 +9,7 @@ class Game:
         self.screen_y = 500
         self.width = 30
 
-        self.gameDisplay = pygame.display.set_mode((self.screen_x, self.screen_y))
+        self.game_display = pygame.display.set_mode((self.screen_x, self.screen_y))
         pygame.display.set_caption('Pozaziemscy zaborcy')
 
         # Set music
@@ -24,7 +24,7 @@ class Game:
         self.label = self.myfont.render("Points: 0", 1, (0, 0, 0))
 
         # Set booleans
-        self.gameExit = False
+        self.game_exit = False
 
         # Set variables
         self.points = 0
@@ -32,6 +32,6 @@ class Game:
 
         # Set starting objects
         self.entities = []
-        self.entities.append(playerShip.PlayerShip(self.width))
-        self.field = enemyField.EnemyField(self.screen_x, self.width)
-        self.entities = self.field.fillWithEnemies(self.entities)
+        self.entities.append(player_ship.PlayerShip(self.width))
+        self.field = enemy_field.EnemyField(self.screen_x, self.width)
+        self.entities = self.field.fill_with_enemies(self.entities)
