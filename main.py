@@ -82,14 +82,14 @@ def main():
                 break
 
         # Check bullet condition
-        for bullet in range(len(bullets)):
-            if bullets[bullet] is not None:
-                bulletExists, points = bullets[bullet].draw(gameDisplay, screen_y, entities, width, points)
+        for i, bullet in enumerate(bullets):
+            if bullet is not None:
+                bulletExists, points = bullet.draw(gameDisplay, screen_y, entities, width, points)
                 if not bulletExists:
-                    if bullet >= 1:
-                        del bullets[bullet]
+                    if i >= 1:
+                        del bullets[i]
                     else:
-                        bullets[bullet] = None
+                        bullets[i] = None
 
         # Update display, maintain stable framerate
         label = myfont.render("Points: " + str(points), 1, (0, 0, 0))

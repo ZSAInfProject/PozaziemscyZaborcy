@@ -51,7 +51,7 @@ class EnemyField:
         return entities
 
     def checkWalls(self, screen_x, gameDisplay):
-        draw.rect(gameDisplay, (255, 0, 0), [self.startX, self.startY, self.fieldWidth, self.fieldHeight])
+        #draw.rect(gameDisplay, (255, 0, 0), [self.startX, self.startY, self.fieldWidth, self.fieldHeight])
         if (round(self.startX, 0) == 0 and self.velocity < 0) or (round(self.startX + self.fieldWidth, 0) == screen_x and self.velocity > 0):
             return False
         else:
