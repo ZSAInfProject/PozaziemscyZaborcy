@@ -23,10 +23,13 @@ class Game:
         self.myfont = pygame.font.SysFont('monospace', 15)
         self.label = self.myfont.render("Points: 0", 1, (0, 0, 0))
         self.label_game_won = self.myfont.render("EZ WIN BOI", 1, (0, 0, 0))
+        self.label_game_lost = self.myfont.render("Git gud n00b", 1, (0, 0, 0))
 
         # Set booleans
         self.game_exit = False
+        self.game_end = False
         self.game_won = False
+        self.game_lost = False
 
         # Set variables
         self.points = 0

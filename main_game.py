@@ -29,8 +29,11 @@ def draw_enemies():
     for enemy in range(1, len(GAME.entities)):
         GAME.entities[enemy].draw(GAME.game_display)
         if GAME.entities[enemy].check_player(GAME.entities[0]):
-            del GAME.entities[enemy]
-            GAME.points -= 10
+            GAME.points = 0
+            GAME.game_end = True
+            GAME.game_lost = True
+            del GAME.entities
+            del GAME.field
             break
 
 
@@ -48,6 +51,7 @@ def check_bullet_condition():
 def check_field_existence():
     if not GAME.field.exists:
         del GAME.field
+        GAME.game_end = True
         GAME.game_won = True
 
 
@@ -63,6 +67,30 @@ def draw_field():
         GAME.field.draw(GAME.screen_x, GAME.game_display, GAME.entities)
 
 
+def draw_game_lost():
+    if GAME.game_lost:
+        GAME.game_display.blit(GAME.label_game_lost, (200, 220))
+
+
+def check_game_status():
+    print(GAME.game_end)
+    if GAME.game_end:
+        if GAME.game_won:
+            draw_game_won()
+        else:
+            draw_game_lost()
+    else:
+        # Draw field
+        draw_field()
+        draw_game_won()
+
+        # Draw player
+        GAME.entities[0].draw(GAME.game_display, GAME.screen_x)
+
+        # Draw enemies
+        draw_enemies()
+
+
 def game_loop():
     while not GAME.game_exit:
 
@@ -72,15 +100,8 @@ def game_loop():
         # Fill screen with white color
         GAME.game_display.fill((255, 255, 255))
 
-        # Draw player
-        GAME.entities[0].draw(GAME.game_display, GAME.screen_x)
-
-        # Draw field
-        draw_field()
-        draw_game_won()
-
-        # Draw enemies
-        draw_enemies()
+        # Status of the game (win/lose/in progress)
+        check_game_status()
 
         # Check bullet condition
         check_bullet_condition()
