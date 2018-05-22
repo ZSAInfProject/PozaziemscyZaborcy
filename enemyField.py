@@ -10,7 +10,7 @@ class EnemyField:
     fieldHeight = 200
     enemyWidth = 0
     enemyHeight = 30
-    velocity = 3
+    velocity = 0.65
     offset_x = 0  # te offsety sa potrzebne globalnie w klasie, bo 2 funkcje z nich korzystaja a srednio mozna podac w argumentach
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
 
