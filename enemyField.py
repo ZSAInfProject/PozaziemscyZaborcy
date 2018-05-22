@@ -10,7 +10,7 @@ class EnemyField:
     fieldHeight = 200
     enemyWidth = 0
     enemyHeight = 30
-    velocity = 0.65
+    velocity = 3
     offset_x = 0  # te offsety sa potrzebne globalnie w klasie, bo 2 funkcje z nich korzystaja a srednio mozna podac w argumentach
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
 
@@ -52,7 +52,7 @@ class EnemyField:
 
     def checkWalls(self, screen_x, gameDisplay):
         #draw.rect(gameDisplay, (255, 0, 0), [self.startX, self.startY, self.fieldWidth, self.fieldHeight])
-        if (round(self.startX, 0) == 0 and self.velocity < 0) or (round(self.startX + self.fieldWidth, 0) == screen_x and self.velocity > 0):
+        if (round(self.startX, 0) <= 0 and self.velocity < 0) or (round(self.startX + self.fieldWidth, 0) >= screen_x and self.velocity > 0):
             return False
         else:
             return True
