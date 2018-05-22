@@ -45,6 +45,24 @@ def check_bullet_condition():
                     GAME.bullets[i] = None
 
 
+def check_field_existence():
+    if not GAME.field.exists:
+        del GAME.field
+        GAME.game_won = True
+
+
+def draw_game_won():
+    if GAME.game_won:
+        GAME.game_display.blit(GAME.label_game_won, (200, 220))
+    else:
+        check_field_existence()
+
+
+def draw_field():
+    if not GAME.game_won:
+        GAME.field.draw(GAME.screen_x, GAME.game_display, GAME.entities)
+
+
 def game_loop():
     while not GAME.game_exit:
 
@@ -58,7 +76,8 @@ def game_loop():
         GAME.entities[0].draw(GAME.game_display, GAME.screen_x)
 
         # Draw field
-        GAME.field.draw(GAME.screen_x, GAME.game_display, GAME.entities)
+        draw_field()
+        draw_game_won()
 
         # Draw enemies
         draw_enemies()

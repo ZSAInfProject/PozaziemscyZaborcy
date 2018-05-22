@@ -9,10 +9,11 @@ class EnemyField:
     field_width = 100
     field_height = 200
     enemy_width = 0
-    enemyHeight = 30
+    enemy_height = 30
     velocity = 0.65
     offset_x = 0  # te offsety sa potrzebne globalnie w klasie, bo 2 funkcje z nich korzystaja a srednio mozna podac w argumentach
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
+    exists = True # potrzebne tylko w rysowaniu ale nwm czy ma ktoś lepszy pomysł
 
     def __init__(self, screen_x, width):
         self.field_width = screen_x-100
@@ -20,9 +21,9 @@ class EnemyField:
 
     def how_many_enemies(self):
         remainder_x = self.field_width % self.enemy_width
-        remainder_y = self.field_height % self.enemyHeight
+        remainder_y = self.field_height % self.enemy_height
         how_many_x = int((self.field_width - remainder_x) / (self.enemy_width))
-        how_many_y = int((self.field_height - remainder_y) / (self.enemyHeight))
+        how_many_y = int((self.field_height - remainder_y) / (self.enemy_height))
 
         if how_many_x % 2 == 0:
             how_many_x /= 2
@@ -31,7 +32,7 @@ class EnemyField:
             how_many_x = ceil(how_many_x / 2)
         if how_many_y % 2 == 0:
             how_many_y /= 2
-            remainder_y += self.enemyHeight
+            remainder_y += self.enemy_height
         else:
             how_many_y = ceil(how_many_y / 2)
 
@@ -47,11 +48,11 @@ class EnemyField:
             for _ in range(how_many_x):
                 entities.append(enemy_ship.EnemyShip(self.enemy_width, field_offset_x, field_offset_y))
                 field_offset_x += 2*self.enemy_width
-            field_offset_y += 2*self.enemyHeight
+            field_offset_y += 2*self.enemy_height
         return entities
 
     def check_walls(self, screen_x, game_display):
-        #draw.rect(game_display, (255, 0, 0), [self.start_x, self.start_y, self.field_width, self.field_height])
+        draw.rect(game_display, (255, 0, 0), [self.start_x, self.start_y, self.field_width, self.field_height])
         if (round(self.start_x, 0) <= 0 and self.velocity < 0) or (round(self.start_x + self.field_width, 0) >= screen_x and self.velocity > 0):
             return False
         else:
@@ -79,6 +80,8 @@ class EnemyField:
             self.field_width = round(max_x - self.start_x + entities[1].width) + self.offset_x
             self.start_y = min_y - self.offset_y
             self.field_height = round(max_y - self.start_y + entities[1].width) + self.offset_y
+        else:
+            self.exists = False
         if self.check_walls(screen_x, game_display):
             self.start_x += self.velocity
             for entity in range(1, len(entities)):

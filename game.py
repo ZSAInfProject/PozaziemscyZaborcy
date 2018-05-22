@@ -22,9 +22,11 @@ class Game:
         # Set font
         self.myfont = pygame.font.SysFont('monospace', 15)
         self.label = self.myfont.render("Points: 0", 1, (0, 0, 0))
+        self.label_game_won = self.myfont.render("EZ WIN BOI", 1, (0, 0, 0))
 
         # Set booleans
         self.game_exit = False
+        self.game_won = False
 
         # Set variables
         self.points = 0
