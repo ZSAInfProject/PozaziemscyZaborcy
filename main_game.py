@@ -14,7 +14,7 @@ def event_catch():
                 GAME.entities[0].add_velocity(-1)
             if event.key == pygame.K_d:
                 GAME.entities[0].add_velocity(1)
-            if event.key == pygame.K_RETURN and GAME.bullets[0] is None:
+            if event.key == pygame.K_RETURN and GAME.bullets[0] is None and not GAME.game_end:
                 GAME.bullets[0] = GAME.entities[0].shoot()
             if event.key == pygame.K_q:
                 GAME.game_exit = True
@@ -90,6 +90,9 @@ def check_game_status():
         # Draw enemies
         draw_enemies()
 
+        # Check bullet condition
+        check_bullet_condition()
+
 
 def game_loop():
     while not GAME.game_exit:
@@ -102,9 +105,6 @@ def game_loop():
 
         # Status of the game (win/lose/in progress)
         check_game_status()
-
-        # Check bullet condition
-        check_bullet_condition()
 
         # Update display, maintain stable framerate
         label = GAME.myfont.render("Points: " + str(GAME.points), 1, (0, 0, 0))
