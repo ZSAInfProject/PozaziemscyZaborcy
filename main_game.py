@@ -10,15 +10,16 @@ def event_catch():
         if event.type == pygame.QUIT:
             GAME.game_exit = True
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                GAME.entities[0].add_velocity(-1)
-            if event.key == pygame.K_d:
-                GAME.entities[0].add_velocity(1)
-            if event.key == pygame.K_RETURN and GAME.bullets[0] is None and not GAME.game_end:
-                GAME.bullets[0] = GAME.entities[0].shoot()
+            if not GAME.game_end:
+                if event.key == pygame.K_a:
+                    GAME.entities[0].add_velocity(-1)
+                if event.key == pygame.K_d:
+                    GAME.entities[0].add_velocity(1)
+                if event.key == pygame.K_RETURN and GAME.bullets[0] is None:
+                    GAME.bullets[0] = GAME.entities[0].shoot()
             if event.key == pygame.K_q:
                 GAME.game_exit = True
-        if event.type == pygame.KEYUP:
+        if event.type == pygame.KEYUP and not GAME.game_end:
             if event.key == pygame.K_a:
                 GAME.entities[0].add_velocity(1)
             if event.key == pygame.K_d:
@@ -73,7 +74,6 @@ def draw_game_lost():
 
 
 def check_game_status():
-    print(GAME.game_end)
     if GAME.game_end:
         if GAME.game_won:
             draw_game_won()
