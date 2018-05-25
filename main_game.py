@@ -1,4 +1,5 @@
 import pygame
+import menu
 from game import Game
 
 pygame.init()
@@ -95,6 +96,9 @@ def check_game_status():
 
 
 def game_loop():
+
+    menu.menu(GAME.game_display, GAME)
+
     while not GAME.game_exit:
 
         # Event-catching loop

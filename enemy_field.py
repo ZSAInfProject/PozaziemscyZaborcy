@@ -1,5 +1,4 @@
 from math import ceil
-from pygame import draw  # do usunięcia na koniec
 import enemy_ship
 
 
@@ -52,7 +51,6 @@ class EnemyField:
         return entities
 
     def check_walls(self, screen_x, game_display):
-        draw.rect(game_display, (255, 0, 0), [self.start_x, self.start_y, self.field_width, self.field_height])
         if (round(self.start_x, 0) <= 0 and self.velocity < 0) or (round(self.start_x + self.field_width, 0) >= screen_x and self.velocity > 0):
             return False
         else:
