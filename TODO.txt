@@ -1,27 +1,11 @@
 klasa abstrakcyjna Ship
     klasa dziedzicząca PlayerShip
-        DONE czasem kolizja z enemyShipem nie działa tak jak powinna
     klasa dziedzicząca EnemyShip
-        DONE ruch pionowy przy kolizji ze ścianą
         wystrzeliwanie pocisków w stosunku do pozycji gracza
-        kolizja z graczem
     klasa dziedzicząca PowerUpShip
         ruch poziomy
         kolizja z pociskiem gracza
         powerup (np zwiększenie prędkości ataku gracza)
-
-klasa Bullet
-    DONE kolizja z przeciwnikami i ścianami
-
-klasa enemy_field
-    DONE metoda licząca ilu enemies zmieści się w field, przyjmująca wielkości enemy i odstęp między nimi
-    DONE metoda tworząca w field enemies (fill), automatycznie dodająca ich do przyjmowanej listy entities
-    DONE metoda wykrywająca kolizję ze ścianą, przestawiając wszyatkich enemies na nowe pozycje i zmieniająca ich vel * -1
-
-    DONE ma sie skalowac z wrogami ktorzy sa przy zyciu
-    efield ma znikac kiedy wrogowie wszyscy znikna.?
-
-chiptune w tle
 
 menu
     start
@@ -32,5 +16,5 @@ GUI
     (licznik hp)
 
 End condition
-    Win condition - eliminacja wrogów / osiągnięcie x punktów
-    Lose condition - strata całego hp / przeciwnicy osiagają najniższe y
+    Win condition - eliminacja wrogów / osiągnięcie x punktów            KINDA DONE
+    Lose condition - strata całego hp / przeciwnicy osiagają najniższe y KINDA DONE
