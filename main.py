@@ -5,7 +5,6 @@ import main_game
 
 pygame.init()
 
-#PYTON NIE SKŁADA JUŻ JAJA
 
 def main():
 
