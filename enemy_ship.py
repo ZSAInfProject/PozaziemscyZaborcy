@@ -1,10 +1,11 @@
+from math import sqrt
 from pygame import draw
 import ship
 import bullet
 
 
 class EnemyShip(ship.Ship):
-    def __init__(self, given_width=30, given_x=220, given_y=50):
+    def __init__(self, given_x, given_y, given_width=30):
         self.s_x = given_x
         self.s_y = given_y
         self.width = given_width
@@ -16,7 +17,18 @@ class EnemyShip(ship.Ship):
         return False
 
     def shoot(self):
-        return bullet.Bullet(self.s_x, -2)
+        return bullet.Bullet(self.s_x, self.s_y + 30, -2)
+
+    def distance_from_player(self, player_x, player_y, player_width):  # TODO: player width, length
+        mid_x = self.s_x + self.width/2
+        #mid_y = self.s_y + self.width/2
+        player_mid_x = player_x + player_width/2
+        #player_mid_y = player_y + player_width/2
+        #distance = sqrt((mid_x - player_mid_x)**2 + (mid_y - player_mid_y)**2)
+        distance = mid_x - player_mid_x
+        if distance < 0:
+            distance = -distance
+        return distance
 
     def draw(self, game_display):
         draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.width])

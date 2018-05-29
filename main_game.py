@@ -11,13 +11,14 @@ def event_catch():
         if event.type == pygame.QUIT:
             GAME.game_exit = True
         if event.type == pygame.KEYDOWN:
-            if not GAME.game_end:
-                if event.key == pygame.K_a:
-                    GAME.entities[0].add_velocity(-1)
-                if event.key == pygame.K_d:
-                    GAME.entities[0].add_velocity(1)
-                if event.key == pygame.K_RETURN and GAME.bullets[0] is None:
-                    GAME.bullets[0] = GAME.entities[0].shoot()
+            if event.key == pygame.K_a:
+                GAME.entities[0].add_velocity(-1)
+            if event.key == pygame.K_d:
+                GAME.entities[0].add_velocity(1)
+            if event.key == pygame.K_RETURN and GAME.bullets[0] is None and not GAME.game_end:
+                GAME.bullets[0] = GAME.entities[0].shoot()
+                wewe = GAME.field.find_shooter(GAME.entities)
+                GAME.bullets.append(GAME.entities[wewe].shoot())
             if event.key == pygame.K_q:
                 GAME.game_exit = True
         if event.type == pygame.KEYUP and not GAME.game_end:
@@ -27,7 +28,7 @@ def event_catch():
                 GAME.entities[0].add_velocity(-1)
 
 
-def draw_enemies():
+def draw_enemies():  # pytanie, czy rysowac powinne sie same, czy pole powinno ich rysowac?
     for enemy in range(1, len(GAME.entities)):
         GAME.entities[enemy].draw(GAME.game_display)
         if GAME.entities[enemy].check_player(GAME.entities[0]):

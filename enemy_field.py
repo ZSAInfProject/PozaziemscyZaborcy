@@ -1,4 +1,6 @@
 from math import ceil
+from random import uniform
+from pygame import draw  # do usunięcia na koniec
 import enemy_ship
 
 
@@ -12,7 +14,7 @@ class EnemyField:
     velocity = 0.65
     offset_x = 0  # te offsety sa potrzebne globalnie w klasie, bo 2 funkcje z nich korzystaja a srednio mozna podac w argumentach
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
-    exists = True # potrzebne tylko w rysowaniu ale nwm czy ma ktoś lepszy pomysł
+    exists = True  # potrzebne tylko w rysowaniu ale nwm czy ma ktoś lepszy pomysł
 
     def __init__(self, screen_x, width):
         self.field_width = screen_x-100
@@ -45,7 +47,7 @@ class EnemyField:
         for _ in range(int(how_many_y)):
             field_offset_x = self.start_x + self.offset_x
             for _ in range(how_many_x):
-                entities.append(enemy_ship.EnemyShip(self.enemy_width, field_offset_x, field_offset_y))
+                entities.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width))
                 field_offset_x += 2*self.enemy_width
             field_offset_y += 2*self.enemy_height
         return entities
@@ -70,6 +72,22 @@ class EnemyField:
             if entities[entity].s_y > max_y:
                 max_y = entities[entity].s_y
         return min_x, max_x, min_y, max_y
+
+    def find_shooter(self, entities):  # self nie jest uzywany, wiec czy funkcja powinna byc tu gdzie jest?
+        min_distance = float('Inf')
+        min_index = -1
+
+        for entity in range(1, len(entities)):
+            current_distance = entities[entity].distance_from_player(entities[0].s_x, entities[0].s_y, entities[0].width)
+            print(current_distance, min_distance)
+            print(current_distance < min_distance)
+            if current_distance <= min_distance:
+                min_distance = current_distance
+                min_index = entity
+        return min_index
+
+    def shot_calculation(self):
+        pass
 
     def draw(self, screen_x, game_display, entities):
         if len(entities) > 1:  # update pola field'a

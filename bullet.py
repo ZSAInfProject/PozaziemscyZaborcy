@@ -4,21 +4,22 @@ from pygame import draw
 class Bullet:
     velocity = 0
     x_pos = 0
-    y_pos = 450
+    y_pos = 0
     exists = True
 
-    def __init__(self, pos, force):
-        self.x_pos = pos + 15
+    def __init__(self, pos_x, pos_y, force):
+        self.x_pos = pos_x + 15  # TODO: zamiast tego 15 powinna byc polowa width strzelajacego entity
+        self.y_pos = pos_y
         self.velocity = force
 
     def move(self):
         self.y_pos -= self.velocity
 
-    def draw(self, game_display, screen_y, entities, width, points):  # tych argumentow jest troche duzo...
+    def draw(self, game_display, screen_y, entities, width, points):  # TODO: tych argumentow jest troche duzo...
         self.move()
         for i, entity in enumerate(entities):  # bez range sie krzaczy przy usuwaniu entity (24 linia)
             # tutaj zmienia sie poziom trudnosci
-            if entity.check_bullet(self, width):  # powinnismy rozrozniac width gracza i wroga, chyba?
+            if entity.check_bullet(self, width):  # TODO: powinnismy rozrozniac width gracza i wroga, chyba?
                 self.exists = False
                 if self.velocity > 0:
                     del entities[i]
