@@ -5,9 +5,9 @@ import enemy_field
 
 class Game:
     def __init__(self):
-        self.screen_x = 500
-        self.screen_y = 500
-        self.width = 30
+        self.screen_x = 1920
+        self.screen_y = 1080
+        self.width = 75
 
         self.game_display = pygame.display.set_mode((self.screen_x, self.screen_y))
         pygame.display.set_caption('Pozaziemscy zaborcy')

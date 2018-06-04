@@ -5,7 +5,10 @@ import bullet
 
 
 class EnemyShip(ship.Ship):
-    def __init__(self, given_x, given_y, given_width=30):
+
+    width = 75
+
+    def __init__(self, given_x, given_y, given_width=75):
         self.s_x = given_x
         self.s_y = given_y
         self.width = given_width
@@ -17,7 +20,7 @@ class EnemyShip(ship.Ship):
         return False
 
     def shoot(self):
-        return bullet.Bullet(self.s_x, self.s_y + 30, -2)
+        return bullet.Bullet(self.s_x, self.s_y + self.width, -2)
 
     def distance_from_player(self, player_x, player_y, player_width):  # TODO: player width, length
         mid_x = self.s_x + self.width/2

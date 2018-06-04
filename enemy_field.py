@@ -8,9 +8,9 @@ class EnemyField:
     start_x = 50
     start_y = 50
     field_width = 100
-    field_height = 200
-    enemy_width = 0
-    enemy_height = 30
+    field_height = 400
+    enemy_width = enemy_ship.EnemyShip.width
+    enemy_height = enemy_width
     velocity = 0.65
     offset_x = 0  # te offsety sa potrzebne globalnie w klasie, bo 2 funkcje z nich korzystaja a srednio mozna podac w argumentach
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
@@ -46,7 +46,7 @@ class EnemyField:
         field_offset_y = self.start_y + self.offset_y
         for _ in range(int(how_many_y)):
             field_offset_x = self.start_x + self.offset_x
-            for _ in range(how_many_x):
+            for _ in range(int(how_many_x)):
                 entities.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width))
                 field_offset_x += 2*self.enemy_width
             field_offset_y += 2*self.enemy_height
