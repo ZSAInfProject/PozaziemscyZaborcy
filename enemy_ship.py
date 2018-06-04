@@ -6,8 +6,6 @@ import bullet
 
 class EnemyShip(ship.Ship):
 
-    width = 75
-
     def __init__(self, given_x, given_y, given_width=75):
         self.s_x = given_x
         self.s_y = given_y

@@ -4,7 +4,7 @@ import bullet
 
 
 class PlayerShip(ship.Ship):
-    def __init__(self, given_width=30, given_x=220, given_y=450):
+    def __init__(self, given_width=30, given_x=950, given_y=850):
         self.s_x = given_x
         self.s_y = given_y
         self.width = given_width
