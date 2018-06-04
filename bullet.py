@@ -15,23 +15,24 @@ class Bullet:
     def move(self):
         self.y_pos -= self.velocity
 
-    def draw(self, game_display, screen_y, entities, width, points):  # TODO: tych argumentow jest troche duzo...
+    def draw(self, GAME):  # TODO: tych argumentow jest troche duzo...
         self.move()
-        for i, entity in enumerate(entities):  # bez range sie krzaczy przy usuwaniu entity (24 linia)
+        for i, entity in enumerate(GAME.entities):  # bez range sie krzaczy przy usuwaniu entity (24 linia)
             # tutaj zmienia sie poziom trudnosci
-            if entity.check_bullet(self, width):  # TODO: powinnismy rozrozniac width gracza i wroga, chyba?
+            if entity.check_bullet(self, GAME.width):  # TODO: powinnismy rozrozniac width gracza i wroga, chyba?
                 self.exists = False
                 if self.velocity > 0:
-                    del entities[i]
-                    points += 10
+                    del GAME.entities[i]
+                    GAME.points += 10
                     break
                 elif self.velocity < 0:
-                    points -= 10
-                    print('game over')
+                    GAME.points -= 10
+                    GAME.game_end = True
+                    GAME.game_lost = True
                 else:
                     print('this should never appear')
-            elif self.y_pos <= 0 or self.y_pos >= screen_y:
+            elif self.y_pos <= 0 or self.y_pos >= GAME.screen_y:
                 self.exists = False
             if self.exists:
-                draw.rect(game_display, (0, 0, 0), [self.x_pos, self.y_pos, 2, 10])
-        return self.exists, points
+                draw.rect(GAME.game_display, (0, 0, 0), [self.x_pos, self.y_pos, 2, 10])
+        return self.exists, GAME.points

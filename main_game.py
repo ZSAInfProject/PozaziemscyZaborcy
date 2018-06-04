@@ -43,7 +43,7 @@ def draw_enemies():  # pytanie, czy rysowac powinne sie same, czy pole powinno i
 def check_bullet_condition():
     for i, bullet in enumerate(GAME.bullets):
         if bullet is not None:
-            bullet_exists, GAME.points = bullet.draw(GAME.game_display, GAME.screen_y, GAME.entities, GAME.width, GAME.points)
+            bullet_exists, GAME.points = bullet.draw(GAME)
             if not bullet_exists:
                 if i >= 1:
                     del GAME.bullets[i]

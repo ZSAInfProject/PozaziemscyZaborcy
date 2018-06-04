@@ -79,8 +79,6 @@ class EnemyField:
 
         for entity in range(1, len(entities)):
             current_distance = entities[entity].distance_from_player(entities[0].s_x, entities[0].s_y, entities[0].width)
-            print(current_distance, min_distance)
-            print(current_distance < min_distance)
             if current_distance <= min_distance:
                 min_distance = current_distance
                 min_index = entity
