@@ -12,7 +12,7 @@ def menu(game_display, GAME):
                 quit()
 
         game_display.fill((255, 255, 255))
-        myfont = pygame.font.SysFont('monospace', 30)
+        myfont = pygame.font.SysFont('comicsansms', 30)
         label = myfont.render("Pozaziemscy zaborcy", 1, (0, 0, 0))
         game_display.blit(label, (70, 150))
         menu_exit = check_mouse(game_display, GAME, menu_exit)
