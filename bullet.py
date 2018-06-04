@@ -7,8 +7,8 @@ class Bullet:
     y_pos = 0
     exists = True
 
-    def __init__(self, pos_x, pos_y, force):
-        self.x_pos = pos_x + 15  # TODO: zamiast tego 15 powinna byc polowa width strzelajacego entity
+    def __init__(self, pos_x, pos_y, force, half_entity_width):
+        self.x_pos = pos_x + half_entity_width  # TODO: zamiast tego 15 powinna byc polowa width strzelajacego entity
         self.y_pos = pos_y
         self.velocity = force
 
@@ -34,5 +34,5 @@ class Bullet:
             elif self.y_pos <= 0 or self.y_pos >= GAME.screen_y:
                 self.exists = False
             if self.exists:
-                draw.rect(GAME.game_display, (0, 0, 0), [self.x_pos, self.y_pos, 2, 10])
+                draw.rect(GAME.game_display, (0, 0, 0), [self.x_pos, self.y_pos, 4, 20])
         return self.exists, GAME.points

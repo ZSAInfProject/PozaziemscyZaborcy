@@ -16,7 +16,7 @@ class PlayerShip(ship.Ship):
             return True
 
     def shoot(self):
-        return bullet.Bullet(self.s_x, self.s_y, 4)
+        return bullet.Bullet(self.s_x, self.s_y, 6, self.width * 0.5)
 
     def draw(self, game_display, screen_x):
         draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.width])
