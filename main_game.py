@@ -2,6 +2,11 @@ import pygame
 import menu
 from game import Game
 
+x = 0
+y = 0
+import os
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
+
 pygame.init()
 GAME = Game()
 
