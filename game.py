@@ -14,7 +14,7 @@ class Game:
 
         # Set music
         pygame.mixer.music.load('./sounds/codex.mp3')
-        pygame.mixer.music.play()
+        pygame.mixer.music.play(-1)
 
         # Set timer
         self.clock = pygame.time.Clock()
