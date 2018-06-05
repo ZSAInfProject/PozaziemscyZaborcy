@@ -100,7 +100,7 @@ class EnemyField:
             for entity in range(1, len(entities)):
                 entities[entity].move(self.velocity, 0)
         else:
-            self.start_y += 20
+            self.start_y += 65
             self.velocity *= -1
             for entity in range(1, len(entities)):
-                entities[entity].move(self.velocity, 20)
+                entities[entity].move(self.velocity, 65)
