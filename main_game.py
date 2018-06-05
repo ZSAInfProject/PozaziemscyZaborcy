@@ -119,7 +119,7 @@ def progress_game(tasks):
 
 def game_loop():
 
-    menu.menu(GAME.game_display, GAME)
+    menu.menu(GAME)
 
     # Initialize tasks
     tasks = init_tasks()

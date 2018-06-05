@@ -1,7 +1,7 @@
 import pygame
+import settings
 
-
-def menu(game_display, GAME):
+def menu(GAME):
 
     menu_exit = False
 
@@ -21,50 +21,73 @@ def menu(game_display, GAME):
                 elif event.key == pygame.K_z:
                     key_green = True
 
-        game_display.fill((255, 255, 255))
+        GAME.game_display.fill((255, 255, 255))
         myfont = pygame.font.SysFont('monospace', 30)
         label = myfont.render("Pozaziemscy zaborcy", 1, (0, 0, 0))
-        game_display.blit(label, (70, 150))
-        menu_exit = check_mouse(game_display, GAME, menu_exit, key_red, key_green)
+        GAME.game_display.blit(label, ((GAME.screen_x - label.get_width()) / 2, GAME.screen_y * 0.1))
+        menu_exit = check_mouse(GAME, menu_exit, key_red, key_green)
 
         pygame.display.update()
-        pygame.time.Clock().tick(15)
 
 
-def check_mouse(game_display, GAME, menu_exit, key_RED, key_GREEN):
+def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
 
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
+    button_width = 200
+    button_x = (GAME.screen_x - button_width) * 0.5
+    button_height = 60
+    button_y = (GAME.screen_y - button_height) * 0.5
+    button_offset = button_height + 30
 
-    if 160 >= mouse[0] >= 60 and 250 <= mouse[1] <= 300 or key_GREEN:
+    button1 = (button_x, button_y, button_width, button_height)
+    button2 = (button_x, button_y + button_offset, button_width, button_height)
+    button3 = (button_x, button_y + 2*button_offset, button_width, button_height)
 
-        pygame.draw.rect(game_display, (120, 255, 120), (60, 250, 100, 50))
+    if button_x + button_width >= mouse[0] >= button_x and button_y <= mouse[1] <= button_y + button_height or key_GREEN:
+
+        pygame.draw.rect(GAME.game_display, (120, 255, 120), button1)
 
         if click[0] == 1 or key_GREEN:
-            pygame.draw.rect(game_display, (120, 44, 23), (60, 250, 100, 50))
-            menu_exit = (0, GAME, menu_exit)
+            pygame.draw.rect(GAME.game_display, (120, 44, 23), button1)
+            menu_exit = check_click(0, GAME)
             return menu_exit
 
     else:
-        pygame.draw.rect(game_display, (0, 255, 0), (60, 250, 100, 50))
+        pygame.draw.rect(GAME.game_display, (0, 255, 0), button1)
 
-    if 450 >= mouse[0] >= 350 and 250 <= mouse[1] <= 300 or key_RED:
+    if button_x + button_width >= mouse[0] >= button_x and button_y + button_offset <= mouse[1] <= button_y + button_offset + button_height:
 
-        pygame.draw.rect(game_display, (255, 60, 120), (350, 250, 100, 50))
+        pygame.draw.rect(GAME.game_display, (200, 200, 200), button2)
+
+        if click[0] == 1:
+            pygame.draw.rect(GAME.game_display, (0, 0, 180), button2)
+            menu_exit = check_click(2, GAME)
+            return menu_exit
+
+    else:
+        pygame.draw.rect(GAME.game_display, (0, 0, 255), button2)
+
+    if button_x + button_width >= mouse[0] >= button_x and button_y + 2*button_offset <= mouse[1] <= button_y + 2*button_offset + button_height or key_RED:
+
+        pygame.draw.rect(GAME.game_display, (255, 60, 120), button3)
 
         if click[0] == 1 or key_RED:
-            pygame.draw.rect(game_display, (255, 120, 120), (350, 250, 100, 50))
-            menu_exit = check_click(1, GAME, menu_exit)
+            pygame.draw.rect(GAME.game_display, (255, 120, 120), button3)
+            menu_exit = check_click(1, GAME)
             return menu_exit
 
     else:
-        pygame.draw.rect(game_display, (255, 0, 0), (350, 250, 100, 50))
+        pygame.draw.rect(GAME.game_display, (255, 0, 0), button3)
 
-
-def check_click(choice, GAME, menu_exit):
+def check_click(choice, GAME):
     if choice == 0:
         GAME.game_exit = False
         return True
     elif choice == 1:
         GAME.game_exit = True
         return True
+    elif choice == 2:
+        settings.settings_loop(GAME)
+        print('got here')
+        return False
