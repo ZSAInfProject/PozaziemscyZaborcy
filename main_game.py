@@ -79,8 +79,8 @@ def draw_game_lost():
 
 def init_tasks():
     tasks = []
-    enemy_shoot_interval = 3
-    enemy_shot_offset = (0, 2)
+    enemy_shoot_interval = 0.65
+    enemy_shot_offset = (0, 0.6)
     tasks.append(Task("enemy shot", enemy_shoot_interval, enemy_shot_offset, GAME.tickrate))
     return tasks
 

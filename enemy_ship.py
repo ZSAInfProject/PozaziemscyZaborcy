@@ -10,6 +10,7 @@ class EnemyShip(ship.Ship):
         self.s_x = given_x
         self.s_y = given_y
         self.width = given_width
+        self.is_enemy = True
 
     def check_player(self, player):  # wykraczy sie jesli kiedykolwiek gracz/enemy nie bedzie kwadratem
         if ((self.s_x <= player.s_x <= self.s_x + self.width) or (self.s_x <= player.s_x + player.width <= self.s_x + self.width)) and \
