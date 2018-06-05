@@ -18,6 +18,7 @@ class Game:
 
         # Set timer
         self.clock = pygame.time.Clock()
+        self.tickrate = 120
 
         # Set font
         self.myfont = pygame.font.SysFont('monospace', 15)
