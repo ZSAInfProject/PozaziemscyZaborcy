@@ -11,13 +11,13 @@ class EnemyField:
     field_height = 400
     enemy_width = enemy_ship.EnemyShip.width
     enemy_height = enemy_width
-    velocity = 0.65
+    velocity = 1.5  # 0.65
     offset_x = 0  # te offsety sa potrzebne globalnie w klasie, bo 2 funkcje z nich korzystaja a srednio mozna podac w argumentach
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
     exists = True  # potrzebne tylko w rysowaniu ale nwm czy ma ktoś lepszy pomysł
 
     def __init__(self, screen_x, width):
-        self.field_width = screen_x-100
+        self.field_width = screen_x/2  # -100
         self.enemy_width = width
 
     def how_many_enemies(self):

@@ -39,5 +39,5 @@ class Game:
         # Set starting objects
         self.entities = []
         self.entities.append(player_ship.PlayerShip(self.width))
-        self.field = enemy_field.EnemyField(self.screen_x, self.width)
+        self.field = enemy_field.EnemyField(self.screen_x, self.width - 25)
         self.entities = self.field.fill_with_enemies(self.entities)
