@@ -7,7 +7,7 @@ class Game:
     def __init__(self):
         self.screen_x = 1920
         self.screen_y = 1080
-        self.width = 75
+        self.width = 50
 
         self.game_display = pygame.display.set_mode((self.screen_x, self.screen_y))
         pygame.display.set_caption('Pozaziemscy zaborcy')
@@ -38,6 +38,6 @@ class Game:
 
         # Set starting objects
         self.entities = []
-        self.entities.append(player_ship.PlayerShip(self.width))
-        self.field = enemy_field.EnemyField(self.screen_x, self.width - 25)
+        self.entities.append(player_ship.PlayerShip())
+        self.field = enemy_field.EnemyField(self.screen_x)
         self.entities = self.field.fill_with_enemies(self.entities)

@@ -2,7 +2,7 @@ class Ship:
     s_x = 0
     s_y = 0
     velocity = 0
-    width = 75
+    width = 50
 
     def __init__(self, given_x, given_y):
         self.s_x = given_x

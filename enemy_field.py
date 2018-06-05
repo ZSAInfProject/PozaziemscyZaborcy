@@ -16,9 +16,8 @@ class EnemyField:
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
     exists = True  # potrzebne tylko w rysowaniu ale nwm czy ma ktoś lepszy pomysł
 
-    def __init__(self, screen_x, width):
+    def __init__(self, screen_x):
         self.field_width = screen_x/2  # -100
-        self.enemy_width = width
 
     def how_many_enemies(self):
         remainder_x = self.field_width % self.enemy_width
