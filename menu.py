@@ -1,6 +1,7 @@
 import pygame
 import settings
 
+
 def menu(GAME):
 
     menu_exit = False
@@ -80,6 +81,7 @@ def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
     else:
         pygame.draw.rect(GAME.game_display, (255, 0, 0), button3)
 
+
 def check_click(choice, GAME):
     if choice == 0:
         GAME.game_exit = False
@@ -88,5 +90,5 @@ def check_click(choice, GAME):
         GAME.game_exit = True
         return True
     elif choice == 2:
-        settings.settings_loop(GAME) 
+        settings.settings_loop(GAME)
         return False

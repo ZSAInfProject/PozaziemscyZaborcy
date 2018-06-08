@@ -18,3 +18,7 @@ End condition
 
 Grafika
     Tekstury na wszystko
+
+Settings
+    klasa Button
+    funkcja inicjalizujaca przycisk resolution ze stałymi zmiennymi
