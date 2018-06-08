@@ -1,27 +1,20 @@
-klasa abstrakcyjna Ship
-    klasa dziedzicząca PlayerShip
-    klasa dziedzicząca EnemyShip
-        ruch pionowy przy kolizji ze ścianą
-        wystrzeliwanie pocisków w stosunku do pozycji gracza
-        kolizja z graczem
-    klasa dziedzicząca PowerUpShip
-        ruch poziomy
-        kolizja z pociskiem gracza
-        powerup (np zwiększenie prędkości ataku gracza)
-
-klasa Bullet
-    kolizja z przeciwnikami i ścianami
-
-chiptune w tle
+klasa dziedzicząca EnemyShip
+    wystrzeliwanie pocisków w stosunku do pozycji gracza
+klasa dziedzicząca PowerUpShip
+    ruch poziomy
+    kolizja z pociskiem gracza
+    powerup (np zwiększenie prędkości ataku gracza)
 
 menu
-    start
-    exit
+    start                                                                KINDA DONE
+    exit                                                                 KINDA DONE
 
 GUI
-    licznik punktów
-    (licznik hp)
+    licznik hp
 
 End condition
-    Win condition - eliminacja wrogów / osiągnięcie x punktów
-    Lose condition - strata całego hp / przeciwnicy osiagają najniższe y
+    Win condition - eliminacja wrogów / osiągnięcie x punktów            KINDA DONE
+    Lose condition - strata całego hp / przeciwnicy osiagają najniższe y KINDA DONE
+
+Grafika
+    Tekstury na wszystko
