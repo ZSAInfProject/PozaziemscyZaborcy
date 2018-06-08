@@ -88,6 +88,5 @@ def check_click(choice, GAME):
         GAME.game_exit = True
         return True
     elif choice == 2:
-        settings.settings_loop(GAME)
-        print('got here')
+        settings.settings_loop(GAME) 
         return False
