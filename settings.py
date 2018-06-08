@@ -63,12 +63,14 @@ def check_click(choice, GAME):
         return False
     elif choice == 1:
         screen_size = (1366, 768)
+        is_fullscreen = False
+        check_flags(GAME, screen_size, is_fullscreen)
         return False
 
 def check_flags(GAME, screen_size, is_fullscreen):
     if is_fullscreen:
         GAME.game_display = pygame.display.set_mode(screen_size, pygame.FULLSCREEN)
     else:
-        GAME.game_display.set_mode(screen_size)
+        GAME.game_display = pygame.display.set_mode(screen_size)
 
     print(GAME.game_display)
