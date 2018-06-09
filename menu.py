@@ -1,5 +1,6 @@
 import pygame
 import settings
+from button import Button
 
 
 def menu(GAME):
@@ -40,46 +41,40 @@ def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
     button_height = 60
     button_y = (GAME.screen_y - button_height) * 0.5
     button_offset = button_height + 30
+    colours = {"green": (0, 255, 0), "blue": (0, 0, 255), "red": (255, 0, 0), "light_green": (100, 255, 100), "light_blue": (100, 100, 255), "light_red": (255, 100, 100),
+               "even_lighter_red": (255, 125, 125)}
 
-    button1 = (button_x, button_y, button_width, button_height)
-    button2 = (button_x, button_y + button_offset, button_width, button_height)
-    button3 = (button_x, button_y + 2*button_offset, button_width, button_height)
+    start_button = Button(button_x, button_y, button_width, button_height, colours["green"], 0)  # XXX: wydaje mi sie, ze powinnismy gdzies tylko raz tworzyc te rzeczy w inicie
+    settings_button = Button(button_x, button_y + button_offset, button_width, button_height, colours["blue"], 0)  # XXX: i przekazac jako argument zamiast tworzyc je co tick
+    exit_button = Button(button_x, button_y + button_offset * 2, button_width, button_height, colours["red"], 0)
 
-    if button_x + button_width >= mouse[0] >= button_x and button_y <= mouse[1] <= button_y + button_height or key_GREEN:
-
-        pygame.draw.rect(GAME.game_display, (120, 255, 120), button1)
-
+    if start_button.x_0 + start_button.width >= mouse[0] >= start_button.x_0 and start_button.y_0 <= mouse[1] <= start_button.y_0 + start_button.height or key_GREEN:
+        start_button.colour = colours["light_green"]
         if click[0] == 1 or key_GREEN:
-            pygame.draw.rect(GAME.game_display, (120, 44, 23), button1)
+            # pygame.draw.rect(GAME.game_display, (120, 44, 23), button1) # XXX to jest moim zdaniem nie potrzebne tu i w settings_button, bo i tak nie widac
+            # XXX nim exit_button zadziala to mija sekunda i tam widac, ale te wyzej dzialaja natychmiastowo
             menu_exit = check_click(0, GAME)
             return menu_exit
+    start_button.draw(GAME.game_display)
 
-    else:
-        pygame.draw.rect(GAME.game_display, (0, 255, 0), button1)
+    if settings_button.x_0 + settings_button.width >= mouse[0] >= settings_button.x_0 and settings_button.y_0 <= mouse[1] <= settings_button.y_0 + settings_button.height:
+        settings_button.colour = colours["light_blue"]
 
-    if button_x + button_width >= mouse[0] >= button_x and button_y + button_offset <= mouse[1] <= button_y + button_offset + button_height:
-
-        pygame.draw.rect(GAME.game_display, (200, 200, 200), button2)
-
-        if click[0] == 1:
-            pygame.draw.rect(GAME.game_display, (0, 0, 180), button2)
+        if click[0] == 1:  # XXX: ogolnie to wydaje mi sie, ze mozna by jakos w petli dla kazdego zrobic to sprawdzanie click zamiast przy kazdym osobno
+            # pygame.draw.rect(GAME.game_display, (0, 0, 180), button2)  # TODO: taa bez kitu by mozna 100% ale mi sie nie chce
             menu_exit = check_click(2, GAME)
             return menu_exit
+    settings_button.draw(GAME.game_display)
 
-    else:
-        pygame.draw.rect(GAME.game_display, (0, 0, 255), button2)
-
-    if button_x + button_width >= mouse[0] >= button_x and button_y + 2*button_offset <= mouse[1] <= button_y + 2*button_offset + button_height or key_RED:
-
-        pygame.draw.rect(GAME.game_display, (255, 60, 120), button3)
+    if exit_button.x_0 + exit_button.width >= mouse[0] >= exit_button.x_0 and exit_button.y_0 <= mouse[1] <= exit_button.y_0 + button_height or key_RED:
+        exit_button.colour = colours["light_red"]
 
         if click[0] == 1 or key_RED:
-            pygame.draw.rect(GAME.game_display, (255, 120, 120), button3)
+            exit_button.colour = colours["even_lighter_red"]
+            exit_button.draw(GAME.game_display)
             menu_exit = check_click(1, GAME)
             return menu_exit
-
-    else:
-        pygame.draw.rect(GAME.game_display, (255, 0, 0), button3)
+    exit_button.draw(GAME.game_display)
 
 
 def check_click(choice, GAME):
