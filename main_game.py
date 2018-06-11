@@ -36,6 +36,7 @@ def draw_enemies():  # pytanie, czy rysowac powinne sie same, czy pole powinno i
         if GAME.entities[enemy].check_player(GAME.entities[0]):
             GAME.points = 0
             GAME.game_end = True
+            print(GAME.entities)
             GAME.game_lost = True
             del GAME.entities
             del GAME.field
@@ -79,8 +80,8 @@ def draw_game_lost():
 
 def init_tasks():
     tasks = []
-    enemy_shoot_interval = 0.65
-    enemy_shot_offset = (0, 0.6)
+    enemy_shoot_interval = 0.65  # 0.65
+    enemy_shot_offset = (0, 0.2)  # 0.2
     tasks.append(Task("enemy shot", enemy_shoot_interval, enemy_shot_offset, GAME.tickrate))
     return tasks
 

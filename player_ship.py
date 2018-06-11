@@ -3,13 +3,14 @@ import ship
 import bullet
 import os
 
+
 class PlayerShip(ship.Ship):
     def __init__(self, game_display, given_width=30, given_x=220, given_y=450):
         self.s_x = given_x
-        self.s_y = given_y - 100
+        self.s_y = given_y + 500
         self.width = given_width
         self.obrazek = pygame.image.load(os.path.join('./textures/', 'playership.png'))
-        self.player_model = pygame.transform.scale(self.obrazek, (50, 100))
+        self.player_model = pygame.transform.scale(self.obrazek, (self.width, self.width))
         #self.oteksturowane = game_display.blit(self.obrazek, [self.s_x, self.s_y, self.width, self.width])
 
     def check_walls(self, screen_x):
