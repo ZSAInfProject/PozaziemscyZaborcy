@@ -1,15 +1,15 @@
 import pygame
 import button
 import enum
+from collections import OrderedDict
 
 pygame.init()
 
-resolutions = {
-    1920: 1080,
-    1600: 900,
-    1366: 768,
-    1280: 720
-}
+class Resolution(enum.Enum):
+    HD = (1280, 720)
+    WXGA = (1366, 768)
+    HDplus = (1600, 900)
+    FHD = (1920, 1080)
 
 
 def settings_loop(GAME):
@@ -32,10 +32,10 @@ def settings_loop(GAME):
 
 
 def find_resolution_pos(mouse, button_x, button_width):
-    res = {}
-    amount = len(resolutions.values()) - 1
-    for i, resolution in enumerate(resolutions.values()):
-        res[resolution] = button_x + (i/amount)*button_width
+    res = OrderedDict()
+    amount = len(Resolution) - 1
+    for i, resolution in enumerate(Resolution):
+        res[resolution.value] = button_x + (i/amount)*button_width
     return res
 
 
@@ -51,12 +51,13 @@ def initialize_buttons(GAME):
 def update_resolution_button(GAME, resolution_button, resolutions_distance, mouse):
     temp = float("Inf")
     res_temp = 0
-    for resolution in resolutions_distance.values():
+    for i, resolution in enumerate(resolutions_distance.values()):
         if abs(resolution - mouse[0]) < temp:
             temp = abs(resolution - mouse[0])
             res_temp = resolution - resolution_button.x_0
+            chosen_resolution = i
     resolution_button.width = res_temp
-    return 0
+    return chosen_resolution
 
 
 def check_mouse(GAME, settings_exit, resolution_button, button_outline):
@@ -75,8 +76,8 @@ def check_mouse(GAME, settings_exit, resolution_button, button_outline):
         resolution_button.colour = (60, 255, 60)
 
         if click[0] == 1:
-            update_resolution_button(GAME, resolution_button, resolutions_distance, mouse)
-            #settings_exit = check_click(0, GAME)
+            chosen_resolution = update_resolution_button(GAME, resolution_button, resolutions_distance, mouse)
+            change_resolution(GAME, chosen_resolution)
             return (False)  # True
 
         else:
@@ -85,8 +86,11 @@ def check_mouse(GAME, settings_exit, resolution_button, button_outline):
     return (False)
 
 
-def check_flags(GAME, screen_size, is_fullscreen):
-    if is_fullscreen:
-        GAME.game_display = pygame.display.set_mode(screen_size, pygame.FULLSCREEN)
-    else:
-        GAME.game_display = pygame.display.set_mode(screen_size)
+def change_resolution(GAME, chosen_resolution):
+
+    for i, res in enumerate(Resolution):
+        if i == chosen_resolution:
+            chosen_size = res.value
+
+    GAME.game_display = pygame.display.set_mode(chosen_size)
+
