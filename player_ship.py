@@ -4,11 +4,7 @@ import bullet
 import os
 
 class PlayerShip(ship.Ship):
-<<<<<<< HEAD
-    def __init__(self, given_width, given_x=950, given_y=850):
-=======
     def __init__(self, game_display, given_width=30, given_x=220, given_y=450):
->>>>>>> teksturki
         self.s_x = given_x
         self.s_y = given_y - 100
         self.width = given_width
