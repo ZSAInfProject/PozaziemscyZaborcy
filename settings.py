@@ -1,9 +1,15 @@
 import pygame
 import button
-
+import enum
 
 pygame.init()
 
+resolutions = {
+    1920: 1080,
+    1600: 900,
+    1366: 768,
+    1280: 720
+}
 
 def settings_loop(GAME):
 
@@ -25,10 +31,10 @@ def settings_loop(GAME):
                     settings_exit = True
 
 
-def find_resolution_pos(mouse, resolutions, button_x, button_width):
+def find_resolution_pos(mouse, button_x, button_width):
     res = {}
-    amount = len(resolutions) - 1
-    for i, resolution in enumerate(resolutions):
+    amount = len(resolutions.values()) - 1
+    for i, resolution in enumerate(resolutions.values()):
         res[resolution] = button_x + (i/amount)*button_width
     return res
 
@@ -57,20 +63,19 @@ def check_mouse(GAME, settings_exit, resolution_button, button_outline):
 
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    resolutions = ['720', '768', '900', '1080']
 
     button_outline.draw(GAME.game_display)
     resolution_button.draw(GAME.game_display)
     # button_offset = button_height + 30
 
-    resolutions = find_resolution_pos(mouse, resolutions, button_outline.x_0, button_outline.width)
+    resolutions_distance = find_resolution_pos(mouse, button_outline.x_0, button_outline.width)
 
     if button_outline.x_0 + button_outline.width >= mouse[0] >= button_outline.x_0 and button_outline.y_0 <= mouse[1] <= button_outline.y_0 + button_outline.height:
         mouse = pygame.mouse.get_pos()
         resolution_button.colour = (60, 255, 60)
 
         if click[0] == 1:
-            update_resolution_button(GAME, resolution_button, resolutions, mouse)
+            update_resolution_button(GAME, resolution_button, resolutions_distance, mouse)
             #settings_exit = check_click(0, GAME)
             return (False)  # True
 
@@ -78,20 +83,6 @@ def check_mouse(GAME, settings_exit, resolution_button, button_outline):
             return(False)
     resolution_button.colour = (0, 255, 0)
     return (False)
-
-
-def check_click(choice, GAME):
-    if choice == 0:
-        screen_size = (1366, 768)
-        is_fullscreen = True
-        check_flags(GAME, screen_size, is_fullscreen)
-        return False
-    elif choice == 1:
-        screen_size = (1366, 768)
-        is_fullscreen = False
-        check_flags(GAME, screen_size, is_fullscreen)
-        return False
-
 
 def check_flags(GAME, screen_size, is_fullscreen):
     if is_fullscreen:
