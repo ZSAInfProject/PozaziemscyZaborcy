@@ -11,8 +11,8 @@ resolutions = {
     1280: 720
 }
 
-def settings_loop(GAME):
 
+def settings_loop(GAME):
     settings_exit = False
     resolutions_button, button_outline = initialize_buttons(GAME)
 
@@ -48,10 +48,10 @@ def initialize_buttons(GAME):
     return resolution_button, button_outline
 
 
-def update_resolution_button(GAME, resolution_button, resolutions, mouse):
+def update_resolution_button(GAME, resolution_button, resolutions_distance, mouse):
     temp = float("Inf")
     res_temp = 0
-    for resolution in resolutions.values():
+    for resolution in resolutions_distance.values():
         if abs(resolution - mouse[0]) < temp:
             temp = abs(resolution - mouse[0])
             res_temp = resolution - resolution_button.x_0
@@ -83,6 +83,7 @@ def check_mouse(GAME, settings_exit, resolution_button, button_outline):
             return(False)
     resolution_button.colour = (0, 255, 0)
     return (False)
+
 
 def check_flags(GAME, screen_size, is_fullscreen):
     if is_fullscreen:
