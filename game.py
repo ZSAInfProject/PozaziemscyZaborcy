@@ -38,6 +38,11 @@ class Game:
 
         # Set starting objects
         self.entities = []
+<<<<<<< HEAD
         self.entities.append(player_ship.PlayerShip(self.width))
         self.field = enemy_field.EnemyField(self.screen_x, self.width - 25)
+=======
+        self.entities.append(player_ship.PlayerShip(self.game_display, self.width))
+        self.field = enemy_field.EnemyField(self.screen_x, self.width)
+>>>>>>> teksturki
         self.entities = self.field.fill_with_enemies(self.entities)
