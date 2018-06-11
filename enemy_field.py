@@ -16,9 +16,8 @@ class EnemyField:
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
     exists = True  # potrzebne tylko w rysowaniu ale nwm czy ma ktoś lepszy pomysł
 
-    def __init__(self, screen_x, width):
+    def __init__(self, screen_x):
         self.field_width = screen_x/2  # -100
-        self.enemy_width = width
 
     def how_many_enemies(self):
         remainder_x = self.field_width % self.enemy_width
@@ -101,7 +100,7 @@ class EnemyField:
             for entity in range(1, len(entities)):
                 entities[entity].move(self.velocity, 0)
         else:
-            self.start_y += 20
+            self.start_y += 65
             self.velocity *= -1
             for entity in range(1, len(entities)):
-                entities[entity].move(self.velocity, 20)
+                entities[entity].move(self.velocity, 65)

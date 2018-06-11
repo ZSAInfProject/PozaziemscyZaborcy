@@ -16,18 +16,18 @@ def event_catch():
             GAME.game_exit = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                GAME.entities[0].add_velocity(-2)
+                GAME.entities[0].add_velocity(-2.5)
             if event.key == pygame.K_d:
-                GAME.entities[0].add_velocity(2)
+                GAME.entities[0].add_velocity(2.5)
             if event.key == pygame.K_RETURN and GAME.bullets[0] is None and not GAME.game_end:
                 GAME.bullets[0] = GAME.entities[0].shoot()
             if event.key == pygame.K_q:
                 GAME.game_exit = True
         if event.type == pygame.KEYUP and not GAME.game_end:
             if event.key == pygame.K_a:
-                GAME.entities[0].add_velocity(2)
+                GAME.entities[0].add_velocity(2.5)
             if event.key == pygame.K_d:
-                GAME.entities[0].add_velocity(-2)
+                GAME.entities[0].add_velocity(-2.5)
 
 
 def draw_enemies():  # pytanie, czy rysowac powinne sie same, czy pole powinno ich rysowac?
@@ -79,8 +79,8 @@ def draw_game_lost():
 
 def init_tasks():
     tasks = []
-    enemy_shoot_interval = 3
-    enemy_shot_offset = (0, 2)
+    enemy_shoot_interval = 0.65
+    enemy_shot_offset = (0, 0.6)
     tasks.append(Task("enemy shot", enemy_shoot_interval, enemy_shot_offset, GAME.tickrate))
     return tasks
 
