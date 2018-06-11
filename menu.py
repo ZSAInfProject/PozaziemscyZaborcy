@@ -1,7 +1,9 @@
 import pygame
+import settings
+from button import Button
 
 
-def menu(game_display, GAME):
+def menu(GAME):
 
     menu_exit = False
 
@@ -21,50 +23,67 @@ def menu(game_display, GAME):
                 elif event.key == pygame.K_z:
                     key_green = True
 
-        game_display.fill((255, 255, 255))
+        GAME.game_display.fill((255, 255, 255))
         myfont = pygame.font.SysFont('monospace', 30)
         label = myfont.render("Pozaziemscy zaborcy", 1, (0, 0, 0))
-        game_display.blit(label, (70, 150))
-        menu_exit = check_mouse(game_display, GAME, menu_exit, key_red, key_green)
+        GAME.game_display.blit(label, ((GAME.screen_x - label.get_width()) / 2, GAME.screen_y * 0.1))
+        menu_exit = check_mouse(GAME, menu_exit, key_red, key_green)
 
         pygame.display.update()
-        pygame.time.Clock().tick(15)
 
 
-def check_mouse(game_display, GAME, menu_exit, key_RED, key_GREEN):
+def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
 
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
+    button_width = 200
+    button_x = (GAME.screen_x - button_width) * 0.5
+    button_height = 60
+    button_y = (GAME.screen_y - button_height) * 0.5
+    button_offset = button_height + 30
+    colours = {"green": (0, 255, 0), "blue": (0, 0, 255), "red": (255, 0, 0), "light_green": (100, 255, 100), "light_blue": (100, 100, 255), "light_red": (255, 100, 100),
+               "even_lighter_red": (255, 125, 125)}
 
-    if 160 >= mouse[0] >= 60 and 250 <= mouse[1] <= 300 or key_GREEN:
+    start_button = Button(button_x, button_y, button_width, button_height, colours["green"], 0)  # XXX: wydaje mi sie, ze powinnismy gdzies tylko raz tworzyc te rzeczy w inicie
+    settings_button = Button(button_x, button_y + button_offset, button_width, button_height, colours["blue"], 0)  # XXX: i przekazac jako argument zamiast tworzyc je co tick
+    exit_button = Button(button_x, button_y + button_offset * 2, button_width, button_height, colours["red"], 0)
 
-        pygame.draw.rect(game_display, (120, 255, 120), (60, 250, 100, 50))
-
+    if start_button.x_0 + start_button.width >= mouse[0] >= start_button.x_0 and start_button.y_0 <= mouse[1] <= start_button.y_0 + start_button.height or key_GREEN:
+        start_button.colour = colours["light_green"]
         if click[0] == 1 or key_GREEN:
-            pygame.draw.rect(game_display, (120, 44, 23), (60, 250, 100, 50))
-            menu_exit = (0, GAME, menu_exit)
+            # pygame.draw.rect(GAME.game_display, (120, 44, 23), button1) # XXX to jest moim zdaniem nie potrzebne tu i w settings_button, bo i tak nie widac
+            # XXX nim exit_button zadziala to mija sekunda i tam widac, ale te wyzej dzialaja natychmiastowo
+            menu_exit = check_click(0, GAME)
             return menu_exit
+    start_button.draw(GAME.game_display)
 
-    else:
-        pygame.draw.rect(game_display, (0, 255, 0), (60, 250, 100, 50))
+    if settings_button.x_0 + settings_button.width >= mouse[0] >= settings_button.x_0 and settings_button.y_0 <= mouse[1] <= settings_button.y_0 + settings_button.height:
+        settings_button.colour = colours["light_blue"]
 
-    if 450 >= mouse[0] >= 350 and 250 <= mouse[1] <= 300 or key_RED:
+        if click[0] == 1:  # XXX: ogolnie to wydaje mi sie, ze mozna by jakos w petli dla kazdego zrobic to sprawdzanie click zamiast przy kazdym osobno
+            # pygame.draw.rect(GAME.game_display, (0, 0, 180), button2)  # TODO: taa bez kitu by mozna 100% ale mi sie nie chce
+            menu_exit = check_click(2, GAME)
+            return menu_exit
+    settings_button.draw(GAME.game_display)
 
-        pygame.draw.rect(game_display, (255, 60, 120), (350, 250, 100, 50))
+    if exit_button.x_0 + exit_button.width >= mouse[0] >= exit_button.x_0 and exit_button.y_0 <= mouse[1] <= exit_button.y_0 + button_height or key_RED:
+        exit_button.colour = colours["light_red"]
 
         if click[0] == 1 or key_RED:
-            pygame.draw.rect(game_display, (255, 120, 120), (350, 250, 100, 50))
-            menu_exit = check_click(1, GAME, menu_exit)
+            exit_button.colour = colours["even_lighter_red"]
+            exit_button.draw(GAME.game_display)
+            menu_exit = check_click(1, GAME)
             return menu_exit
-
-    else:
-        pygame.draw.rect(game_display, (255, 0, 0), (350, 250, 100, 50))
+    exit_button.draw(GAME.game_display)
 
 
-def check_click(choice, GAME, menu_exit):
+def check_click(choice, GAME):
     if choice == 0:
         GAME.game_exit = False
         return True
     elif choice == 1:
         GAME.game_exit = True
         return True
+    elif choice == 2:
+        settings.settings_loop(GAME)
+        return False

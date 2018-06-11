@@ -10,6 +10,7 @@ class Game:
         self.width = 50
 
         self.game_display = pygame.display.set_mode((self.screen_x, self.screen_y))
+
         pygame.display.set_caption('Pozaziemscy zaborcy')
 
         # Set music
