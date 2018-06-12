@@ -24,7 +24,7 @@ class EnemyShip(ship.Ship):
         return False
 
     def shoot(self):
-        return bullet.Bullet(self.s_x, self.s_y + self.width, -4545, self.width * 0.5, self.bullet_width, self.bullet_height, self.bullet_model)
+        return bullet.Bullet(self.s_x, self.s_y + self.width, -4545, self.width * 0.1, self.bullet_width - 10, self.bullet_height - 80, self.bullet_model)
 
     def distance_from_player(self, player_x, player_y, player_width):  # TODO: player width, length
         mid_x = self.s_x + self.width/2

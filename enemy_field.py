@@ -53,7 +53,7 @@ class EnemyField:
             field_offset_y += 2*self.enemy_height
         return entities
 
-    def check_walls(self, screen_x, game_display):
+    def check_walls(self, screen_x):
         # print(screen_x)
         if (round(self.start_x, 0) <= 0 and self.velocity < 0) or (round(self.start_x + self.field_width, 0) >= screen_x and self.velocity > 0):
             return False
@@ -89,7 +89,7 @@ class EnemyField:
     def shot_calculation(self):
         pass
 
-    def draw(self, screen_x, game_display, entities):
+    def move_enemies(self, screen_x, entities):
         if len(entities) > 1:  # update pola field'a
             #draw.rect(game_display, (255, 0, 0), (self.start_x, self.start_y, self.field_width, self.field_height))
             min_x, max_x, min_y, max_y = self.find_entity_extremes(entities)
@@ -99,7 +99,7 @@ class EnemyField:
             self.field_height = round(max_y - self.start_y + entities[1].width) + self.offset_y
         else:
             self.exists = False
-        if self.check_walls(screen_x, game_display):
+        if self.check_walls(screen_x):
             self.start_x += self.velocity
             for entity in range(1, len(entities)):
                 entities[entity].move(self.velocity, 0)

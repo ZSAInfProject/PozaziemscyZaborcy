@@ -22,9 +22,9 @@ class PlayerShip(ship.Ship):
     def shoot(self):
         return bullet.Bullet(self.s_x, self.s_y - self.bullet_height, 6, self.width * 0.5, self.bullet_width, self.bullet_height, self.bullet_model)
 
-    def draw(self, game_display, screen_x):
-        pygame.draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.height])
-        game_display.blit(self.player_model, [self.s_x, self.s_y, self.width, self.width])
+    def touched_wall(self, screen_x):
+        #pygame.draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.height])
+        #game_display.blit(self.player_model, [self.s_x, self.s_y, self.width, self.width])
         if self.check_walls(screen_x):
             self.s_x += self.velocity
         return True

@@ -30,9 +30,24 @@ def event_catch():
                 GAME.entities[0].add_velocity(-2.5)
 
 
-def draw_enemies():  # pytanie, czy rysowac powinne sie same, czy pole powinno ich rysowac?
+'''def draw_enemies():  # pytanie, czy rysowac powinne sie same, czy pole powinno ich rysowac?
     for enemy in range(1, len(GAME.entities)):
-        GAME.entities[enemy].draw(GAME.game_display)
+        GAME.entities[enemy].draw(GAME.game_display)                   #REMOVE
+        if GAME.entities[enemy].check_player(GAME.entities[0]):
+            GAME.points = 0
+            GAME.game_end = True
+            GAME.game_lost = True
+            del GAME.entities
+            del GAME.field
+            break
+'''
+def draw_objects():
+    for bullet in GAME.bullets:
+        if bullet is not None:
+            GAME.game_display.blit(bullet.bullet_model, [bullet.x_pos, bullet.y_pos, bullet.width, bullet.width])
+    GAME.game_display.blit(GAME.entities[0].player_model, [GAME.entities[0].s_x, GAME.entities[0].s_y, GAME.entities[0].width, GAME.entities[0].width])
+    for enemy in range(1, len(GAME.entities)):
+        GAME.game_display.blit(GAME.entities[enemy].enemy_model, [GAME.entities[enemy].s_x, GAME.entities[enemy].s_y, GAME.entities[enemy].width, GAME.entities[enemy].width])
         if GAME.entities[enemy].check_player(GAME.entities[0]):
             GAME.points = 0
             GAME.game_end = True
@@ -41,11 +56,10 @@ def draw_enemies():  # pytanie, czy rysowac powinne sie same, czy pole powinno i
             del GAME.field
             break
 
-
 def check_bullet_condition():
     for i, bullet in enumerate(GAME.bullets):
         if bullet is not None:
-            bullet_exists, GAME.points = bullet.draw(GAME)
+            bullet_exists, GAME.points = bullet.draw(GAME)      #REMOVE usunąć draw stąd
             if not bullet_exists:
                 if i >= 1:
                     del GAME.bullets[i]
@@ -67,9 +81,9 @@ def draw_game_won():
         check_field_existence()
 
 
-def draw_field():
+def check_field():
     if not GAME.game_won:
-        GAME.field.draw(GAME.screen_x, GAME.game_display, GAME.entities)
+        GAME.field.move_enemies(GAME.screen_x, GAME.entities)  #REMOVE
 
 
 def draw_game_lost():
@@ -100,15 +114,18 @@ def progress_game(tasks):
         else:
             draw_game_lost()
     else:
-        # Draw field
-        draw_field()
+        # Draw field                                                      
+        #draw_field()
+        check_field()
         draw_game_won()
 
         # Draw player
-        GAME.entities[0].draw(GAME.game_display, GAME.screen_x)
-
+        #GAME.entities[0].draw(GAME.game_display, GAME.screen_x)
+        GAME.entities[0].touched_wall(GAME.screen_x)
         # Draw enemies
-        draw_enemies()
+        #draw_enemies()
+
+        draw_objects()
 
         # Check if any task happens this tick
         parse_tasks(tasks)
