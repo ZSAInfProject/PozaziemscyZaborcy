@@ -129,7 +129,7 @@ def game_loop():
         # Event-catching loop
         event_catch()
 
-        # Fill screen with white color
+        # Fill screen with white colour
         GAME.game_display.fill((255, 255, 255))
 
         # Status of the game (win/lose/in progress)
@@ -140,3 +140,4 @@ def game_loop():
         GAME.game_display.blit(label, (10, 10))
         pygame.display.update()
         GAME.clock.tick(GAME.tickrate)
+        print(GAME.clock)

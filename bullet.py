@@ -1,5 +1,6 @@
-from pygame import draw
+from pygame import draw, image, transform
 from math import sqrt
+import os
 
 
 class Bullet:
@@ -17,6 +18,8 @@ class Bullet:
         self.do_find_player_start_x = True
         self.width = width
         self.height = height
+        self.obrazek = image.load(os.path.join('./textures/', 'bullet.png'))
+        self.player_model = transform.scale(self.obrazek, (self.width, self.height))
 
     def find_player_start_x(self, game):
         player = game.entities[0]
@@ -54,5 +57,6 @@ class Bullet:
             elif self.y_pos <= 0 or self.y_pos >= GAME.screen_y:
                 self.exists = False
             if self.exists:
-                draw.rect(GAME.game_display, (0, 0, 0), [self.x_pos, self.y_pos, self.width, self.height])
+                #draw.rect(GAME.game_display, (0, 0, 0), [self.x_pos, self.y_pos, self.width, self.height])
+                GAME.game_display.blit(self.player_model, [self.x_pos, self.y_pos, self.width, self.width])
         return self.exists, GAME.points

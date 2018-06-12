@@ -1,7 +1,8 @@
 from math import sqrt
-from pygame import draw
+from pygame import draw, transform, image
 import ship
 import bullet
+import os
 
 
 class EnemyShip(ship.Ship):
@@ -12,6 +13,8 @@ class EnemyShip(ship.Ship):
         self.width = given_width
         self.height = self.width
         self.is_enemy = True
+        self.obrazek = image.load(os.path.join('./textures/', 'matej_cropped.png'))
+        self.player_model = transform.scale(self.obrazek, (self.width, self.height))  # (self.width, self.width))
 
     def check_player(self, player):  # wykraczy sie jesli kiedykolwiek gracz/enemy nie bedzie kwadratem
         if ((self.s_x <= player.s_x <= self.s_x + self.width) or (self.s_x <= player.s_x + player.width <= self.s_x + self.width)) and \
@@ -34,7 +37,8 @@ class EnemyShip(ship.Ship):
         return distance
 
     def draw(self, game_display):
-        draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.width])
+        #draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.width])
+        game_display.blit(self.player_model, [self.s_x, self.s_y, self.width, self.width])
 
     def move(self, velocity, add_y):
         self.s_x += velocity
