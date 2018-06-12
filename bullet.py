@@ -1,6 +1,7 @@
 from pygame import draw, image, transform
 from math import sqrt
 import os
+import resources
 
 
 class Bullet:
@@ -11,15 +12,14 @@ class Bullet:
     player_start_x = 0
     direction = 0
 
-    def __init__(self, pos_x, pos_y, force, half_entity_width, width, height):
+    def __init__(self, pos_x, pos_y, force, half_entity_width, width, height, model):
         self.x_pos = pos_x + half_entity_width  # TODO: zamiast tego 15 powinna byc polowa width strzelajacego entity
         self.y_pos = pos_y
         self.velocity = force
         self.do_find_player_start_x = True
         self.width = width
         self.height = height
-        self.obrazek = image.load(os.path.join('./textures/', 'bullet.png'))
-        self.player_model = transform.scale(self.obrazek, (self.width, self.height))
+        self.bullet_model = transform.scale(model, (self.width, self.height))
 
     def find_player_start_x(self, game):
         player = game.entities[0]
@@ -56,7 +56,5 @@ class Bullet:
                     print('this should never appear')
             elif self.y_pos <= 0 or self.y_pos >= GAME.screen_y:
                 self.exists = False
-            if self.exists:
-                #draw.rect(GAME.game_display, (0, 0, 0), [self.x_pos, self.y_pos, self.width, self.height])
-                GAME.game_display.blit(self.player_model, [self.x_pos, self.y_pos, self.width, self.width])
+        GAME.game_display.blit(self.bullet_model, [self.x_pos, self.y_pos, self.width, self.width])
         return self.exists, GAME.points

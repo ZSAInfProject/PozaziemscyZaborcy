@@ -1,3 +1,9 @@
+from pygame import image, transform
+import os
+
+
 class Resources:
-    def __init_(self, model):
-        if model
+    def __init__(self):
+        self.matej_model = image.load(os.path.join('./textures/', 'matej_cropped.png'))
+        self.bullet_model = image.load(os.path.join('./textures/', 'bullet.png'))
+        self.playership_model = image.load(os.path.join('./textures/', 'playership.png'))

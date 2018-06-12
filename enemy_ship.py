@@ -3,18 +3,19 @@ from pygame import draw, transform, image
 import ship
 import bullet
 import os
+import resources
 
 
 class EnemyShip(ship.Ship):
 
-    def __init__(self, given_x, given_y, given_width):
+    def __init__(self, given_x, given_y, given_width, model, bullet_model):
         self.s_x = given_x
         self.s_y = given_y
         self.width = given_width
         self.height = self.width
         self.is_enemy = True
-        self.obrazek = image.load(os.path.join('./textures/', 'matej_cropped.png'))
-        self.player_model = transform.scale(self.obrazek, (self.width, self.height))  # (self.width, self.width))
+        self.enemy_model = transform.scale(model, (self.width, self.height))  # (self.width, self.width))
+        self.bullet_model = bullet_model
 
     def check_player(self, player):  # wykraczy sie jesli kiedykolwiek gracz/enemy nie bedzie kwadratem
         if ((self.s_x <= player.s_x <= self.s_x + self.width) or (self.s_x <= player.s_x + player.width <= self.s_x + self.width)) and \
@@ -23,7 +24,7 @@ class EnemyShip(ship.Ship):
         return False
 
     def shoot(self):
-        return bullet.Bullet(self.s_x, self.s_y + self.width, -4545, self.width * 0.5, self.bullet_width, self.bullet_height)
+        return bullet.Bullet(self.s_x, self.s_y + self.width, -4545, self.width * 0.5, self.bullet_width, self.bullet_height, self.bullet_model)
 
     def distance_from_player(self, player_x, player_y, player_width):  # TODO: player width, length
         mid_x = self.s_x + self.width/2
@@ -38,7 +39,7 @@ class EnemyShip(ship.Ship):
 
     def draw(self, game_display):
         #draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.width])
-        game_display.blit(self.player_model, [self.s_x, self.s_y, self.width, self.width])
+        game_display.blit(self.enemy_model, [self.s_x, self.s_y, self.width, self.width])
 
     def move(self, velocity, add_y):
         self.s_x += velocity

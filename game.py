@@ -1,15 +1,19 @@
 import pygame
 import player_ship
 import enemy_field
+from resources import Resources
 
 
 class Game:
     def game_init(self):
-        '''set starting game objects'''
+        '''set starting game objects and resources'''
+        # Initialize game models
+        resources = Resources()
+
         self.entities = []
         print(self.screen_y)
-        self.entities.append(player_ship.PlayerShip(220, 0.9*self.screen_y-self.width))
-        self.field = enemy_field.EnemyField(self.screen_x)
+        self.entities.append(player_ship.PlayerShip(220, 0.9*self.screen_y-self.width, resources.playership_model, resources.bullet_model))
+        self.field = enemy_field.EnemyField(self.screen_x, resources.matej_model, resources.bullet_model)
         self.entities = self.field.fill_with_enemies(self.entities)
 
     def __init__(self):

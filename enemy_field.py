@@ -16,8 +16,10 @@ class EnemyField:
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
     exists = True  # potrzebne tylko w rysowaniu ale nwm czy ma ktoś lepszy pomysł
 
-    def __init__(self, screen_x):
+    def __init__(self, screen_x, matej_model, bullet_model):
         self.field_width = screen_x/2  # -100
+        self.model = matej_model
+        self.bullet_model = bullet_model
 
     def how_many_enemies(self):
         remainder_x = self.field_width % self.enemy_width
@@ -46,7 +48,7 @@ class EnemyField:
         for _ in range(int(how_many_y)):
             field_offset_x = self.start_x + self.offset_x
             for _ in range(int(how_many_x)):
-                entities.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width))
+                entities.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width, self.model, self.bullet_model))
                 field_offset_x += 2*self.enemy_width
             field_offset_y += 2*self.enemy_height
         return entities
