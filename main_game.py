@@ -36,7 +36,6 @@ def draw_enemies():  # pytanie, czy rysowac powinne sie same, czy pole powinno i
         if GAME.entities[enemy].check_player(GAME.entities[0]):
             GAME.points = 0
             GAME.game_end = True
-            print(GAME.entities)
             GAME.game_lost = True
             del GAME.entities
             del GAME.field

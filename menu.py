@@ -51,8 +51,7 @@ def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
     if start_button.x_0 + start_button.width >= mouse[0] >= start_button.x_0 and start_button.y_0 <= mouse[1] <= start_button.y_0 + start_button.height or key_GREEN:
         start_button.colour = colours["light_green"]
         if click[0] == 1 or key_GREEN:
-            # pygame.draw.rect(GAME.game_display, (120, 44, 23), button1) # XXX to jest moim zdaniem nie potrzebne tu i w settings_button, bo i tak nie widac
-            # XXX nim exit_button zadziala to mija sekunda i tam widac, ale te wyzej dzialaja natychmiastowo
+            GAME.game_init()
             menu_exit = check_click(0, GAME)
             return menu_exit
     start_button.draw(GAME.game_display)

@@ -4,6 +4,14 @@ import enemy_field
 
 
 class Game:
+    def game_init(self):
+        '''set starting game objects'''
+        self.entities = []
+        print(self.screen_y)
+        self.entities.append(player_ship.PlayerShip(self.width, 220, 0.9*self.screen_y-self.width))
+        self.field = enemy_field.EnemyField(self.screen_x)
+        self.entities = self.field.fill_with_enemies(self.entities)
+
     def __init__(self):
         self.screen_x = 1920
         self.screen_y = 1080
@@ -36,9 +44,3 @@ class Game:
         # Set variables
         self.points = 0
         self.bullets = [None]
-
-        # Set starting objects
-        self.entities = []
-        self.entities.append(player_ship.PlayerShip(self.game_display, self.width))
-        self.field = enemy_field.EnemyField(self.screen_x)
-        self.entities = self.field.fill_with_enemies(self.entities)

@@ -5,6 +5,7 @@ from collections import OrderedDict
 
 pygame.init()
 
+
 class Resolution(enum.Enum):
     HD = (1280, 720)
     WXGA = (1366, 768)
@@ -17,7 +18,6 @@ def settings_loop(GAME):
     resolutions_button, button_outline = initialize_buttons(GAME)
 
     while not settings_exit:
-
         GAME.game_display.fill((255, 255, 255))
         settings_exit = check_mouse(GAME, settings_exit, resolutions_button, button_outline)
         pygame.display.update()
@@ -81,7 +81,7 @@ def check_mouse(GAME, settings_exit, resolution_button, button_outline):
             return (False)  # True
 
         else:
-            return(False)
+            return (False)
     resolution_button.colour = (0, 255, 0)
     return (False)
 
@@ -91,6 +91,6 @@ def change_resolution(GAME, chosen_resolution):
     for i, res in enumerate(Resolution):
         if i == chosen_resolution:
             chosen_size = res.value
-
+            GAME.screen_x = res.value[0]
+            GAME.screen_y = res.value[1]
     GAME.game_display = pygame.display.set_mode(chosen_size)
-
