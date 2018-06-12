@@ -56,5 +56,4 @@ class Bullet:
                     print('this should never appear')
             elif self.y_pos <= 0 or self.y_pos >= GAME.screen_y:
                 self.exists = False
-        #GAME.game_display.blit(self.bullet_model, [self.x_pos, self.y_pos, self.width, self.width])
         return self.exists, GAME.points

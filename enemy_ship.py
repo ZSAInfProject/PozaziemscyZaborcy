@@ -37,10 +37,6 @@ class EnemyShip(ship.Ship):
             distance = -distance
         return distance
 
-    def draw(self, game_display):
-        #draw.rect(game_display, (0, 0, 0), [self.s_x, self.s_y, self.width, self.width])
-        game_display.blit(self.enemy_model, [self.s_x, self.s_y, self.width, self.width])
-
     def move(self, velocity, add_y):
         self.s_x += velocity
         self.s_y += add_y
