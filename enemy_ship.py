@@ -10,6 +10,7 @@ class EnemyShip(ship.Ship):
         self.s_x = given_x
         self.s_y = given_y
         self.width = given_width
+        self.height = self.width
         self.is_enemy = True
 
     def check_player(self, player):  # wykraczy sie jesli kiedykolwiek gracz/enemy nie bedzie kwadratem
@@ -19,7 +20,7 @@ class EnemyShip(ship.Ship):
         return False
 
     def shoot(self):
-        return bullet.Bullet(self.s_x, self.s_y + self.width, -6, self.width * 0.5)
+        return bullet.Bullet(self.s_x, self.s_y + self.width, -4545, self.width * 0.5, self.bullet_width, self.bullet_height)
 
     def distance_from_player(self, player_x, player_y, player_width):  # TODO: player width, length
         mid_x = self.s_x + self.width/2

@@ -3,7 +3,10 @@ class Ship:
     s_y = 0
     velocity = 0
     width = 50
+    height = 0
     is_enemy = False
+    bullet_height = 20
+    bullet_width = 4
 
     def __init__(self, given_x, given_y):
         self.s_x = given_x
@@ -15,5 +18,5 @@ class Ship:
     def check_bullet(self, bullet):
         if bullet.velocity < 0 and self.is_enemy:
             return False
-        elif (self.s_y <= bullet.y_pos <= self.s_y + self.width) and (self.s_x <= bullet.x_pos <= self.s_x + self.width):
+        elif (self.s_y <= bullet.y_pos + bullet.height <= self.s_y + self.height) and (self.s_x <= bullet.x_pos + bullet.width <= self.s_x + self.width):
             return True

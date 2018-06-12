@@ -8,7 +8,7 @@ class Game:
         '''set starting game objects'''
         self.entities = []
         print(self.screen_y)
-        self.entities.append(player_ship.PlayerShip(self.width, 220, 0.9*self.screen_y-self.width))
+        self.entities.append(player_ship.PlayerShip(220, 0.9*self.screen_y-self.width))
         self.field = enemy_field.EnemyField(self.screen_x)
         self.entities = self.field.fill_with_enemies(self.entities)
 
