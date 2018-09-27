@@ -1,10 +1,11 @@
 from math import ceil
 from random import uniform
-from pygame import draw  # do usunięcia na koniec
+from pygame import draw  # do usunięcia na koniec (TODO)
 import enemy_ship
 
 
 class EnemyField:
+    #FIXME hmm, czemu to nie w inicie?
     start_x = 50
     start_y = 50
     field_width = 100
@@ -16,11 +17,13 @@ class EnemyField:
     offset_y = 0  # chyba ze ktos ma lepszy pomysl
     exists = True  # potrzebne tylko w rysowaniu ale nwm czy ma ktoś lepszy pomysł
 
+    #FIXME o, a to już w inicie
     def __init__(self, screen_x, matej_model, bullet_model):
         self.field_width = screen_x/2  # -100
         self.model = matej_model
         self.bullet_model = bullet_model
 
+    #FIXME pikne
     def how_many_enemies(self):
         remainder_x = self.field_width % self.enemy_width
         remainder_y = self.field_height % self.enemy_height
@@ -40,6 +43,7 @@ class EnemyField:
 
         return how_many_x, remainder_x, how_many_y, remainder_y
 
+    #FIXME trochę dużo rzeczy zwraca how_many_enemies()
     def fill_with_enemies(self, entities):
         how_many_x, remainder_x, how_many_y, remainder_y = self.how_many_enemies()
         self.offset_x = remainder_x/2
@@ -53,12 +57,14 @@ class EnemyField:
             field_offset_y += 2*self.enemy_height
         return entities
 
+    #FIXME długi if
     def check_walls(self, screen_x):
         if (round(self.start_x, 0) <= 0 and self.velocity < 0) or (round(self.start_x + self.field_width, 0) >= screen_x and self.velocity > 0):
             return False
         else:
             return True
 
+    #FIXME no chyba git
     def find_entity_extremes(self, entities):
         min_x, min_y = float('Inf'), float('Inf')
         max_x, max_y = -float('Inf'), -float('Inf')
@@ -79,15 +85,18 @@ class EnemyField:
         min_index = -1
 
         for entity in range(1, len(entities)):
+            #FIXME coś to długie
             current_distance = entities[entity].distance_from_player(entities[0].s_x, entities[0].s_y, entities[0].width)
             if current_distance <= min_distance:
                 min_distance = current_distance
                 min_index = entity
         return min_index
 
+    #FIXME X KURWA D, pls usuń to, usuń to
     def shot_calculation(self):
         pass
 
+    #FIXME no troszkę obszerna ale ogólnie git
     def move_enemies(self, screen_x, entities):
         if len(entities) > 1:  # update pola field'a
             min_x, max_x, min_y, max_y = self.find_entity_extremes(entities)

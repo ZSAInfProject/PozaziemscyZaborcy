@@ -1,7 +1,7 @@
 from pygame import image, transform
 import os
 
-
+#FIXME gdyby tylko wszystko tak wyglądało...
 class Resources:
     def __init__(self):
         self.matej_model = image.load(os.path.join('./textures/', 'matej_cropped.png'))

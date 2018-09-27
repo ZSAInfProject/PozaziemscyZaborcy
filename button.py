@@ -1,6 +1,6 @@
 from pygame import draw
 
-
+#FIXME cała klasa git
 class Button:
     def __init__(self, x_0, y_0, width, height, colour, outline=0):  # TODO: dodac offset I guess
         self.x_0 = x_0

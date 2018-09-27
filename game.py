@@ -5,9 +5,9 @@ from resources import Resources
 
 
 class Game:
+    #FIXME ten print to chyba pijany, to appendowanie gracza do entities wywołuje raka
     def game_init(self):
         '''set starting game objects and resources'''
-        # Initialize game models
         resources = Resources()
 
         self.entities = []
@@ -16,6 +16,7 @@ class Game:
         self.field = enemy_field.EnemyField(self.screen_x, resources.matej_model, resources.bullet_model)
         self.entities = self.field.fill_with_enemies(self.entities)
 
+    #FIXME ładnie podzielone, bo ja to robiłem
     def __init__(self):
         self.screen_x = 1920
         self.screen_y = 1080
