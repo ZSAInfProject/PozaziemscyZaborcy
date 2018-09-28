@@ -6,7 +6,7 @@ from task import Task
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 0)
 
-pygame.init()
+
 GAME = Game()
 
 
@@ -168,3 +168,4 @@ def game_loop():
         pygame.display.update()
         GAME.clock.tick(GAME.tickrate)
         # print(GAME.clock)
+    pygame.quit()
