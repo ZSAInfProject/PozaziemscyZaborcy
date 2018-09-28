@@ -6,6 +6,7 @@ from button import Button
 def menu(GAME):
 
     menu_exit = False
+    myfont = pygame.font.SysFont('monospace', 30)
 
     while not menu_exit:
 
@@ -24,7 +25,6 @@ def menu(GAME):
                     key_green = True
 
         GAME.game_display.fill((255, 255, 255))
-        myfont = pygame.font.SysFont('monospace', 30)
         label = myfont.render("Pozaziemscy zaborcy", 1, (0, 0, 0))
         GAME.game_display.blit(label, ((GAME.screen_x - label.get_width()) / 2, GAME.screen_y * 0.1))
         menu_exit = check_mouse(GAME, menu_exit, key_red, key_green)
@@ -61,6 +61,7 @@ def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
 
         if click[0] == 1:  # XXX: ogolnie to wydaje mi sie, ze mozna by jakos w petli dla kazdego zrobic to sprawdzanie click zamiast przy kazdym osobno
             # pygame.draw.rect(GAME.game_display, (0, 0, 180), button2)  # TODO: taa bez kitu by mozna 100% ale mi sie nie chce
+            # top kek
             menu_exit = check_click(2, GAME)
             return menu_exit
     settings_button.draw(GAME.game_display)

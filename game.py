@@ -8,6 +8,8 @@ class Game:
     #FIXME ten print to chyba pijany, to appendowanie gracza do entities wywołuje raka
     def game_init(self):
         '''set starting game objects and resources'''
+        pygame.init()
+        
         resources = Resources()
 
         self.entities = []
