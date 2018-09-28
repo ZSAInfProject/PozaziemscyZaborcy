@@ -27,7 +27,7 @@ class EnemyShip(ship.Ship):
 
     #FIXME to jest w pizdu szerokie
     def shoot(self):
-        return bullet.Bullet(self.s_x, self.s_y + self.width, -4545, self.width * 0.1, self.bullet_width - 10, self.bullet_height - 80, self.bullet_model)
+        return bullet.Bullet(self.s_x, self.s_y + self.width, -4545, self.width * 0.1, self.bullet_width, self.bullet_height, self.bullet_model)
 
     #FIXME raczej ładne
     def distance_from_player(self, player_x, player_y, player_width):  # TODO: player width, length
