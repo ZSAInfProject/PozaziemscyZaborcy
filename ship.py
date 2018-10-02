@@ -18,10 +18,6 @@ class Ship:
     def check_bullet(self, bullet):
         if bullet.velocity < 0 and self.is_enemy:
             return False
-        temp_y = self.s_y
-        temp_x = self.s_x
-        if self.is_enemy:
-            #temp_y += self.height
-            pass
-        if (temp_y <= bullet.y_pos + bullet.height <= temp_y + self.height) and (temp_x <= bullet.x_pos + bullet.width <= temp_x + self.width):
+        if ((self.s_x < (bullet.x_pos + bullet.width)) and ((self.s_x + self.width) > bullet.x_pos)
+                and (self.s_y < (bullet.y_pos + bullet.height)) and ((self.s_y + self.height) > bullet.y_pos)):
             return True

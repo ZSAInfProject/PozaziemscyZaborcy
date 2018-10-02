@@ -27,10 +27,10 @@ class EnemyShip(ship.Ship):
 
     def distance_from_player(self, player_x, player_y, player_width):  # TODO: player width, length
         mid_x = self.s_x + self.width/2
-        #mid_y = self.s_y + self.width/2
+        # mid_y = self.s_y + self.width/2
         player_mid_x = player_x + player_width/2
-        #player_mid_y = player_y + player_width/2
-        #distance = sqrt((mid_x - player_mid_x)**2 + (mid_y - player_mid_y)**2)
+        # player_mid_y = player_y + player_width/2
+        # distance = sqrt((mid_x - player_mid_x)**2 + (mid_y - player_mid_y)**2)
         distance = mid_x - player_mid_x
         if distance < 0:
             distance = -distance

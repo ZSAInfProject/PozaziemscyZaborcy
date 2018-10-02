@@ -20,8 +20,8 @@ class Bullet:
         self.height = height
         self.bullet_model = transform.scale(__import__('resources').Resources.bullet_model, (self.width, self.height))
 
-    def find_player_start_x(self, game):
-        player = game.entities[0]
+    def find_player_start_x(self, player):
+        player = player
         p_x = player.s_x + player.width/2
         diff_y = player.s_y + player.width/2 - self.y_pos
         diff_x = player.s_x + player.width/2 - self.x_pos
@@ -36,7 +36,7 @@ class Bullet:
 
     def draw(self, GAME):  # TODO: tych argumentow jest troche duzo...
         if self.do_find_player_start_x and self.velocity < 0:
-            self.find_player_start_x(GAME)
+            self.find_player_start_x(GAME.player)
             self.do_find_player_start_x = False
         self.move()
         for i, entity in enumerate(GAME.entities):  # bez range sie krzaczy przy usuwaniu entity (24 linia)
