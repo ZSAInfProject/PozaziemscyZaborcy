@@ -52,7 +52,7 @@ class EnemyField:
         for _ in range(int(how_many_y)):
             field_offset_x = self.start_x + self.offset_x
             for _ in range(int(how_many_x)):
-                entities.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width, self.model, self.bullet_model))
+                entities.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width, self.model))
                 field_offset_x += 2*self.enemy_width
             field_offset_y += 2*self.enemy_height
         return entities

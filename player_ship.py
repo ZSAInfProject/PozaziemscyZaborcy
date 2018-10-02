@@ -6,13 +6,12 @@ import os
 
 class PlayerShip(ship.Ship):
     #FIXME skalowanie width i height daje mi raka
-    def __init__(self, given_x, given_y, playership_model, bullet_model):
+    def __init__(self, given_x, given_y, playership_model):
         self.s_x = given_x
         self.s_y = given_y
         self.width = int(674/10)
         self.height = int(1507/10)
         self.player_model = pygame.transform.scale(playership_model, (self.width, self.height))  # (self.width, self.width))
-        self.bullet_model = bullet_model
 
     #FIXME no ten if to chyba troszku długi
     def check_walls(self, screen_x):
@@ -23,7 +22,7 @@ class PlayerShip(ship.Ship):
 
     #FIXME pojebało z tym pociskiem chyba
     def shoot(self):
-        return bullet.Bullet(self.s_x, self.s_y - self.bullet_height, 6, self.width * 0.5, self.bullet_width, self.bullet_height, self.bullet_model)
+        return bullet.Bullet(self.s_x, self.s_y - self.bullet_height, 6, self.width * 0.5, self.bullet_width, self.bullet_height)
 
     #FIXME ładne
     def touched_wall(self, screen_x):

@@ -5,18 +5,14 @@ from resources import Resources
 
 
 class Game:
-    #FIXME ten print to chyba pijany, to appendowanie gracza do entities wywołuje raka
     def game_init(self):
-        '''set starting game objects and resources'''
         resources = Resources()
 
+        self.player = player_ship.PlayerShip(220, 0.9*self.screen_y-self.width, resources.playership_model)
         self.entities = []
-        print(self.screen_y)
-        self.entities.append(player_ship.PlayerShip(220, 0.9*self.screen_y-self.width, resources.playership_model, resources.bullet_model))
         self.field = enemy_field.EnemyField(self.screen_x, resources.matej_model, resources.bullet_model)
         self.entities = self.field.fill_with_enemies(self.entities)
 
-    #FIXME ładnie podzielone, bo ja to robiłem
     def __init__(self):
         self.screen_x = 1920
         self.screen_y = 1080

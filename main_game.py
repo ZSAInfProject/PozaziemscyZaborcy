@@ -16,21 +16,21 @@ def event_catch():
             GAME.game_exit = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                GAME.entities[0].add_velocity(-2.5)
+                GAME.player.add_velocity(-2.5)
             if event.key == pygame.K_d:
-                GAME.entities[0].add_velocity(2.5)
+                GAME.player.add_velocity(2.5)
             # FIXME GAME.bullets powinien trzymać pociski gracza i enemy
             # gracz powinien mieć wtedy jakiegoś bool'a has_shot
             # A, no i nwm czemu jakieś not GAME.game_end jest tutaj bo raczej nie powinno tu być
             if event.key == pygame.K_RETURN and GAME.bullets[0] is None and not GAME.game_end:
-                GAME.bullets[0] = GAME.entities[0].shoot()
+                GAME.bullets[0] = GAME.player.shoot()
             if event.key == pygame.K_q:
                 GAME.game_exit = True
         if event.type == pygame.KEYUP and not GAME.game_end:
             if event.key == pygame.K_a:
-                GAME.entities[0].add_velocity(2.5)
+                GAME.player.add_velocity(2.5)
             if event.key == pygame.K_d:
-                GAME.entities[0].add_velocity(-2.5)
+                GAME.player.add_velocity(-2.5)
 
 
 def draw_objects():
@@ -39,12 +39,12 @@ def draw_objects():
             # FIXME czytelne w chuj:
             GAME.game_display.blit(bullet.bullet_model, [bullet.x_pos, bullet.y_pos])
     # FIXME nad-czytelność:
-    GAME.game_display.blit(GAME.entities[0].player_model, [GAME.entities[0].s_x, GAME.entities[0].s_y, GAME.entities[0].width, GAME.entities[0].width])
+    GAME.game_display.blit(GAME.player.player_model, [GAME.player.s_x, GAME.player.s_y, GAME.player.width, GAME.player.width])
     for enemy in range(1, len(GAME.entities)):
         # FIXME wcale nie długa funkcja:
         GAME.game_display.blit(GAME.entities[enemy].enemy_model, [GAME.entities[enemy].s_x, GAME.entities[enemy].s_y, GAME.entities[enemy].width, GAME.entities[enemy].width])
         # FIXME niżej już troszke lepiej:
-        if GAME.entities[enemy].check_player(GAME.entities[0]):
+        if GAME.entities[enemy].check_player(GAME.player):
             GAME.points = 0
             GAME.game_end = True
             GAME.game_lost = True
@@ -131,7 +131,7 @@ def progress_game(tasks):
         draw_game_won()
 
         # Check if player touched wall
-        GAME.entities[0].touched_wall(GAME.screen_x)
+        GAME.player.touched_wall(GAME.screen_x)
 
         # Draw every object on screen
         draw_objects()

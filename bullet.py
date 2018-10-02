@@ -1,7 +1,6 @@
 from pygame import draw, image, transform
 from math import sqrt
 import os
-import resources
 
 
 class Bullet:
@@ -17,14 +16,14 @@ class Bullet:
     direction = 0
 
     #FIXME Trochę nawalone ale jakoś potrzebne, więc nwm
-    def __init__(self, pos_x, pos_y, force, half_entity_width, width, height, model):
+    def __init__(self, pos_x, pos_y, force, half_entity_width, width, height):
         self.x_pos = pos_x + half_entity_width
         self.y_pos = pos_y
         self.velocity = force
         self.do_find_player_start_x = True
         self.width = width
         self.height = height
-        self.bullet_model = transform.scale(model, (self.width, self.height))
+        self.bullet_model = transform.scale(__import__('resources').Resources.bullet_model, (self.width, self.height))
 
     #FIXME ahh... ten player jako entities[0], piękna sprawa
     def find_player_start_x(self, game):
