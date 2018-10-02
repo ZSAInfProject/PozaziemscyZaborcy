@@ -40,7 +40,7 @@ class EnemyField:
 
         return how_many_x, remainder_x, how_many_y, remainder_y
 
-    def fill_with_enemies(self, entities):
+    def fill_with_enemies(self, enemies):
         how_many_x, remainder_x, how_many_y, remainder_y = self.how_many_enemies()
         self.offset_x = remainder_x/2
         self.offset_y = remainder_y/2
@@ -48,10 +48,10 @@ class EnemyField:
         for _ in range(int(how_many_y)):
             field_offset_x = self.start_x + self.offset_x
             for _ in range(int(how_many_x)):
-                entities.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width, self.model))
+                enemies.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width, self.model))
                 field_offset_x += 2*self.enemy_width
             field_offset_y += 2*self.enemy_height
-        return entities
+        return enemies
 
     def check_walls(self, screen_x):
         if (round(self.start_x, 0) <= 0 and self.velocity < 0) or (round(self.start_x + self.field_width, 0) >= screen_x and self.velocity > 0):
@@ -59,27 +59,27 @@ class EnemyField:
         else:
             return True
 
-    def find_entity_extremes(self, entities):
+    def find_entity_extremes(self, enemies):
         min_x, min_y = float('Inf'), float('Inf')
         max_x, max_y = -float('Inf'), -float('Inf')
 
-        for entity in range(1, len(entities)):
-            if entities[entity].s_x < min_x:
-                min_x = entities[entity].s_x
-            if entities[entity].s_x > max_x:  # musi byc if a nie elif, bo jesli zawsze bedzie true w 1szym, to nie ustawi max_x
-                max_x = entities[entity].s_x
-            if entities[entity].s_y < min_y:
-                min_y = entities[entity].s_y
-            if entities[entity].s_y > max_y:
-                max_y = entities[entity].s_y
+        for entity in range(1, len(enemies)):
+            if enemies[entity].s_x < min_x:
+                min_x = enemies[entity].s_x
+            if enemies[entity].s_x > max_x:  # musi byc if a nie elif, bo jesli zawsze bedzie true w 1szym, to nie ustawi max_x
+                max_x = enemies[entity].s_x
+            if enemies[entity].s_y < min_y:
+                min_y = enemies[entity].s_y
+            if enemies[entity].s_y > max_y:
+                max_y = enemies[entity].s_y
         return min_x, max_x, min_y, max_y
 
-    def find_shooter(self, entities):  # self nie jest uzywany, wiec czy funkcja powinna byc tu gdzie jest?
+    def find_shooter(self, enemies):  # self nie jest uzywany, wiec czy funkcja powinna byc tu gdzie jest?
         min_distance = float('Inf')
         min_index = -1
 
-        for entity in range(1, len(entities)):
-            current_distance = entities[entity].distance_from_player(entities[0].s_x, entities[0].s_y, entities[0].width)
+        for entity in range(1, len(enemies)):
+            current_distance = enemies[entity].distance_from_player(enemies[0].s_x, enemies[0].s_y, enemies[0].width)
             if current_distance <= min_distance:
                 min_distance = current_distance
                 min_index = entity
@@ -88,21 +88,21 @@ class EnemyField:
     def shot_calculation(self):
         pass
 
-    def move_enemies(self, screen_x, entities):
-        if len(entities) > 1:  # update pola field'a
-            min_x, max_x, min_y, max_y = self.find_entity_extremes(entities)
+    def move_enemies(self, screen_x, enemies):
+        if len(enemies) > 1:  # update pola field'a
+            min_x, max_x, min_y, max_y = self.find_entity_extremes(enemies)
             self.start_x = min_x - self.offset_x
-            self.field_width = round(max_x - self.start_x + entities[1].width) + self.offset_x
+            self.field_width = round(max_x - self.start_x + enemies[1].width) + self.offset_x
             self.start_y = min_y - self.offset_y
-            self.field_height = round(max_y - self.start_y + entities[1].width) + self.offset_y
+            self.field_height = round(max_y - self.start_y + enemies[1].width) + self.offset_y
         else:
             self.exists = False
         if self.check_walls(screen_x):
             self.start_x += self.velocity
-            for entity in range(1, len(entities)):
-                entities[entity].move(self.velocity, 0)
+            for entity in range(1, len(enemies)):
+                enemies[entity].move(self.velocity, 0)
         else:
             self.start_y += 65
             self.velocity *= -1
-            for entity in range(1, len(entities)):
-                entities[entity].move(self.velocity, 65)
+            for entity in range(1, len(enemies)):
+                enemies[entity].move(self.velocity, 65)

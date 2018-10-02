@@ -39,12 +39,12 @@ class Bullet:
             self.find_player_start_x(GAME.player)
             self.do_find_player_start_x = False
         self.move()
-        for i, entity in enumerate(GAME.entities):  # bez range sie krzaczy przy usuwaniu entity (24 linia)
+        for i, entity in enumerate(GAME.enemies):  # bez range sie krzaczy przy usuwaniu entity (24 linia)
             # tutaj zmienia sie poziom trudnosci
             if entity.check_bullet(self):  # TODO: powinnismy rozrozniac width gracza i wroga, chyba?
                 self.exists = False
                 if self.velocity > 0:
-                    del GAME.entities[i]
+                    del GAME.enemies[i]
                     GAME.points += 10
                     break
                 elif self.velocity < 0:

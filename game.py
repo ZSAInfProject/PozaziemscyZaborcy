@@ -9,9 +9,9 @@ class Game:
         resources = Resources()
 
         self.player = player_ship.PlayerShip(220, 0.9*self.screen_y-self.width, resources.playership_model)
-        self.entities = []
+        self.enemies = []
         self.field = enemy_field.EnemyField(self.screen_x, resources.matej_model, resources.bullet_model)
-        self.entities = self.field.fill_with_enemies(self.entities)
+        self.enemies = self.field.fill_with_enemies(self.enemies)
 
     def __init__(self):
         self.screen_x = 1920

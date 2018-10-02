@@ -35,13 +35,13 @@ def draw_objects():
         if bullet is not None:
             GAME.game_display.blit(bullet.bullet_model, [bullet.x_pos, bullet.y_pos])
     GAME.game_display.blit(GAME.player.player_model, [GAME.player.s_x, GAME.player.s_y, GAME.player.width, GAME.player.width])
-    for enemy in range(1, len(GAME.entities)):
-        GAME.game_display.blit(GAME.entities[enemy].enemy_model, [GAME.entities[enemy].s_x, GAME.entities[enemy].s_y, GAME.entities[enemy].width, GAME.entities[enemy].width])
-        if GAME.entities[enemy].check_player(GAME.player):
+    for enemy in range(1, len(GAME.enemies)):
+        GAME.game_display.blit(GAME.enemies[enemy].enemy_model, [GAME.enemies[enemy].s_x, GAME.enemies[enemy].s_y, GAME.enemies[enemy].width, GAME.enemies[enemy].width])
+        if GAME.enemies[enemy].check_player(GAME.player):
             GAME.points = 0
             GAME.game_end = True
             GAME.game_lost = True
-            del GAME.entities
+            del GAME.enemies
             del GAME.field
             break
 
@@ -73,7 +73,7 @@ def draw_game_won():
 
 def check_field():
     if not GAME.game_won:
-        GAME.field.move_enemies(GAME.screen_x, GAME.entities)
+        GAME.field.move_enemies(GAME.screen_x, GAME.enemies)
 
 
 def draw_game_lost():
@@ -93,8 +93,8 @@ def parse_tasks(tasks):
     for task in tasks:
         if task.check_ticks(GAME.tickrate):
             if task.name == "enemy shot":
-                shooter = GAME.field.find_shooter(GAME.entities)
-                GAME.bullets.append(GAME.entities[shooter].shoot())
+                shooter = GAME.field.find_shooter(GAME.enemies)
+                GAME.bullets.append(GAME.enemies[shooter].shoot())
 
 
 def progress_game(tasks):
