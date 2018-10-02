@@ -2,7 +2,6 @@ import pygame
 import settings
 from button import Button
 
-#FIXME to chyba spok
 def menu(GAME):
 
     menu_exit = False
@@ -31,7 +30,6 @@ def menu(GAME):
 
         pygame.display.update()
 
-#FIXME jak na check_mouse to trochę za długie xd
 def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
 
     mouse = pygame.mouse.get_pos()
@@ -75,7 +73,6 @@ def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
             return menu_exit
     exit_button.draw(GAME.game_display)
 
-#FIXME chyba git
 def check_click(choice, GAME):
     if choice == 0:
         GAME.game_exit = False

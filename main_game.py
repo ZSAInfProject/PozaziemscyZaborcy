@@ -19,9 +19,6 @@ def event_catch():
                 GAME.player.add_velocity(-2.5)
             if event.key == pygame.K_d:
                 GAME.player.add_velocity(2.5)
-            # FIXME GAME.bullets powinien trzymać pociski gracza i enemy
-            # gracz powinien mieć wtedy jakiegoś bool'a has_shot
-            # A, no i nwm czemu jakieś not GAME.game_end jest tutaj bo raczej nie powinno tu być
             if event.key == pygame.K_RETURN and GAME.bullets[0] is None and not GAME.game_end:
                 GAME.bullets[0] = GAME.player.shoot()
             if event.key == pygame.K_q:
@@ -36,14 +33,10 @@ def event_catch():
 def draw_objects():
     for bullet in GAME.bullets:
         if bullet is not None:
-            # FIXME czytelne w chuj:
             GAME.game_display.blit(bullet.bullet_model, [bullet.x_pos, bullet.y_pos])
-    # FIXME nad-czytelność:
     GAME.game_display.blit(GAME.player.player_model, [GAME.player.s_x, GAME.player.s_y, GAME.player.width, GAME.player.width])
     for enemy in range(1, len(GAME.entities)):
-        # FIXME wcale nie długa funkcja:
         GAME.game_display.blit(GAME.entities[enemy].enemy_model, [GAME.entities[enemy].s_x, GAME.entities[enemy].s_y, GAME.entities[enemy].width, GAME.entities[enemy].width])
-        # FIXME niżej już troszke lepiej:
         if GAME.entities[enemy].check_player(GAME.player):
             GAME.points = 0
             GAME.game_end = True
@@ -56,20 +49,15 @@ def draw_objects():
 def check_bullet_condition():
     for i, bullet in enumerate(GAME.bullets):
         if bullet is not None:
-            # FIXME to zajebiście, że przy wywoływaniu rysowania pocisku
-            # zwracane jest istnienie pocisku i punkty gracza XD
             bullet_exists, GAME.points = bullet.draw(GAME)
             if not bullet_exists:
-                # FIXME no tak, i >= 1 bo nie można usunąć pocisku gracza XD
                 if i >= 1:
                     del GAME.bullets[i]
-                # FIXME ale można ustawić na None bo czemu nie...
                 else:
                     GAME.bullets[i] = None
 
 
 def check_field_existence():
-    # FIXME przyklad ladnej funkcji
     if not GAME.field.exists:
         del GAME.field
         GAME.game_end = True
@@ -77,9 +65,6 @@ def check_field_existence():
 
 
 def draw_game_won():
-    # FIXME przyklad krotkiej i ladnej funkcji tylko nwm czemu
-    # rysowanie wygranej sprawdza istnienie pola_x (bo sama nazwa nie mowi
-    # o jakie pole chodzi)
     if GAME.game_won:
         GAME.game_display.blit(GAME.label_game_won, (200, 220))
     else:
@@ -87,19 +72,16 @@ def draw_game_won():
 
 
 def check_field():
-    # FIXME może dobre, nwm czy czytelne
     if not GAME.game_won:
         GAME.field.move_enemies(GAME.screen_x, GAME.entities)
 
 
 def draw_game_lost():
-    # FIXME cud, miód i malinka
     if GAME.game_lost:
         GAME.game_display.blit(GAME.label_game_lost, (200, 220))
 
 
 def init_tasks():
-    # FIXME nwm czemu w main_game a nie w game.py ale reszta git
     tasks = []
     enemy_shoot_interval = 1  # 0.65
     enemy_shot_offset = (0, 0.5)  # 0.2
@@ -108,7 +90,6 @@ def init_tasks():
 
 
 def parse_tasks(tasks):
-    # FIXME nwm Sebix to robił, więc niech oceni czy jest git
     for task in tasks:
         if task.check_ticks(GAME.tickrate):
             if task.name == "enemy shot":
@@ -117,7 +98,6 @@ def parse_tasks(tasks):
 
 
 def progress_game(tasks):
-    # FIXME no nawet ładne to to
     if GAME.game_end:
         if GAME.game_won:
             draw_game_won()
@@ -144,7 +124,6 @@ def progress_game(tasks):
 
 
 def game_loop():
-    # FIXME wydaje się spok
 
     menu.menu(GAME)
 

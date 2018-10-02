@@ -2,7 +2,6 @@ from random import uniform
 
 
 class Task:
-    #FIXME gites
     def __init__(self, name, interval, offset, tickrate):
         self.name = name
         self.base_interval = interval
@@ -11,11 +10,9 @@ class Task:
         self.offset = self.generate_offset()
         self.ticks_remaining = self.update_interval(self.randomize_operator()) * tickrate
 
-    #FIXME ładne
     def generate_offset(self):
         return uniform(self.offset_min, self.offset_max)
 
-    #FIXME cudo
     def update_interval(self, add):
         if add:
             self.interval = self.base_interval + self.generate_offset()
@@ -23,11 +20,9 @@ class Task:
             self.interval = self.base_interval - self.generate_offset()
         return self.interval
 
-    #FIXME spoczi
     def randomize_operator(self):
         return round(uniform(0, 1))
 
-    #FIXME jest nice
     def check_ticks(self, tickrate):
         self.ticks_remaining -= 1
         if self.ticks_remaining <= 0:

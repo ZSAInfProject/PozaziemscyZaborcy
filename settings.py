@@ -5,14 +5,12 @@ from collections import OrderedDict
 
 pygame.init()
 
-#FIXME enum power, fuck yea
 class Resolution(enum.Enum):
     HD = (1280, 720)
     WXGA = (1366, 768)
     HDplus = (1600, 900)
     FHD = (1920, 1080)
 
-#FIXME raczej ładne
 def settings_loop(GAME):
     settings_exit = False
     resolutions_button, button_outline = initialize_buttons(GAME)
@@ -30,7 +28,6 @@ def settings_loop(GAME):
                 if event.key == pygame.K_q:
                     settings_exit = True
 
-#FIXME raczej ładne
 def find_resolution_pos(mouse, button_x, button_width):
     res = OrderedDict()
     amount = len(Resolution) - 1
@@ -38,7 +35,6 @@ def find_resolution_pos(mouse, button_x, button_width):
         res[resolution.value] = button_x + (i/amount)*button_width
     return res
 
-#FIXME troszku długie linie ale jeszcze mieszczą się w przyzwoitości (chyba)
 def initialize_buttons(GAME):
     button_width, button_height = 400, 60
     button_x, button_y = GAME.screen_x-button_width, GAME.screen_y-button_height
@@ -47,7 +43,6 @@ def initialize_buttons(GAME):
     button_outline = button.Button(button_x*0.5, button_y*0.5, button_width, button_height, (0, 0, 0), 3)
     return resolution_button, button_outline
 
-#FIXME cudne
 def update_resolution_button(GAME, resolution_button, resolutions_distance, mouse):
     temp = float("Inf")
     res_temp = 0
@@ -59,7 +54,6 @@ def update_resolution_button(GAME, resolution_button, resolutions_distance, mous
     resolution_button.width = res_temp
     return chosen_resolution
 
-#FIXME no ten if to chyba na dwóch monitorach by się nie zmieścił
 def check_mouse(GAME, settings_exit, resolution_button, button_outline):
 
     mouse = pygame.mouse.get_pos()
@@ -85,7 +79,6 @@ def check_mouse(GAME, settings_exit, resolution_button, button_outline):
     resolution_button.colour = (0, 255, 0)
     return (False)
 
-#FIXME ładne
 def change_resolution(GAME, chosen_resolution):
 
     for i, res in enumerate(Resolution):
