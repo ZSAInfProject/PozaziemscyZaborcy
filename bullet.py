@@ -23,7 +23,7 @@ class Bullet:
     def find_player_start_x(self, player):
         player = player
         p_x = player.s_x + player.width/2
-        diff_y = player.s_y + player.width/2 - self.y_pos
+        diff_y = player.s_y - self.y_pos - self.height/2
         diff_x = player.s_x + player.width/2 - self.x_pos
         if self.velocity < 0:
             diff_xy = sqrt(diff_x**2 + diff_y**2)

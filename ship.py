@@ -5,8 +5,8 @@ class Ship:
     width = 50
     height = 0
     is_enemy = False
-    bullet_height = int(415/2)  # 20
-    bullet_width = int(64/2)  # 4
+    bullet_height = 50  # int(415/2)  # 20
+    bullet_width = 5  # int(64/2)  # 4
 
     def __init__(self, given_x, given_y):
         self.s_x = given_x
