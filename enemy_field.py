@@ -74,12 +74,12 @@ class EnemyField:
                 max_y = enemies[entity].s_y
         return min_x, max_x, min_y, max_y
 
-    def find_shooter(self, enemies):  # self nie jest uzywany, wiec czy funkcja powinna byc tu gdzie jest?
+    def find_shooter(self, enemies, player):  # self nie jest uzywany, wiec czy funkcja powinna byc tu gdzie jest?
         min_distance = float('Inf')
         min_index = -1
 
         for entity in range(1, len(enemies)):
-            current_distance = enemies[entity].distance_from_player(enemies[0].s_x, enemies[0].s_y, enemies[0].width)
+            current_distance = enemies[entity].distance_from_player(player.s_x, player.s_y, player.width)
             if current_distance <= min_distance:
                 min_distance = current_distance
                 min_index = entity

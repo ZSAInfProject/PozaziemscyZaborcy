@@ -93,7 +93,7 @@ def parse_tasks(tasks):
     for task in tasks:
         if task.check_ticks(GAME.tickrate):
             if task.name == "enemy shot":
-                shooter = GAME.field.find_shooter(GAME.enemies)
+                shooter = GAME.field.find_shooter(GAME.enemies, GAME.player)
                 GAME.bullets.append(GAME.enemies[shooter].shoot())
 
 
