@@ -47,6 +47,8 @@ class Bullet:
                     del GAME.enemies[i]
                     GAME.points += 10
                     break
+                elif self.y_pos <= 0 or self.y_pos >= GAME.screen_y:
+                    self.exists = False
                 else:
                     print('this should never appear')
         if GAME.player.check_bullet(self):
@@ -54,6 +56,4 @@ class Bullet:
                 GAME.points -= 10
                 GAME.game_end = True
                 GAME.game_lost = True
-            elif self.y_pos <= 0 or self.y_pos >= GAME.screen_y:
-                self.exists = False
         return self.exists, GAME.points

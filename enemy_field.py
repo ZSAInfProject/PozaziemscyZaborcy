@@ -63,7 +63,7 @@ class EnemyField:
         min_x, min_y = float('Inf'), float('Inf')
         max_x, max_y = -float('Inf'), -float('Inf')
 
-        for entity in range(1, len(enemies)):
+        for entity in range(0, len(enemies)):
             if enemies[entity].s_x < min_x:
                 min_x = enemies[entity].s_x
             if enemies[entity].s_x > max_x:  # musi byc if a nie elif, bo jesli zawsze bedzie true w 1szym, to nie ustawi max_x
@@ -78,7 +78,7 @@ class EnemyField:
         min_distance = float('Inf')
         min_index = -1
 
-        for entity in range(1, len(enemies)):
+        for entity in range(0, len(enemies)):
             current_distance = enemies[entity].distance_from_player(player.s_x, player.s_y, player.width)
             if current_distance <= min_distance:
                 min_distance = current_distance
@@ -99,10 +99,10 @@ class EnemyField:
             self.exists = False
         if self.check_walls(screen_x):
             self.start_x += self.velocity
-            for entity in range(1, len(enemies)):
+            for entity in range(0, len(enemies)):
                 enemies[entity].move(self.velocity, 0)
         else:
             self.start_y += 65
             self.velocity *= -1
-            for entity in range(1, len(enemies)):
+            for entity in range(0, len(enemies)):
                 enemies[entity].move(self.velocity, 65)

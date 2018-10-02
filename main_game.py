@@ -35,7 +35,7 @@ def draw_objects():
         if bullet is not None:
             GAME.game_display.blit(bullet.bullet_model, [bullet.x_pos, bullet.y_pos])
     GAME.game_display.blit(GAME.player.player_model, [GAME.player.s_x, GAME.player.s_y, GAME.player.width, GAME.player.width])
-    for enemy in range(1, len(GAME.enemies)):
+    for enemy in range(0, len(GAME.enemies)):
         GAME.game_display.blit(GAME.enemies[enemy].enemy_model, [GAME.enemies[enemy].s_x, GAME.enemies[enemy].s_y, GAME.enemies[enemy].width, GAME.enemies[enemy].width])
         if GAME.enemies[enemy].check_player(GAME.player):
             GAME.points = 0
