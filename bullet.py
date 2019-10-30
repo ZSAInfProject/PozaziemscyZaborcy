@@ -1,5 +1,6 @@
 from pygame import draw, image, transform
 from math import sqrt
+from resources import Resources
 import os
 
 
@@ -18,7 +19,8 @@ class Bullet:
         self.do_find_player_start_x = True
         self.width = width
         self.height = height
-        self.bullet_model = transform.scale(__import__('resources').Resources.bullet_model, (self.width, self.height))
+        self.bullet_model = transform.scale(
+            Resources.bullet_model, (self.width, self.height))
 
     def find_player_start_x(self, player):
         player = player
@@ -39,9 +41,11 @@ class Bullet:
             self.find_player_start_x(GAME.player)
             self.do_find_player_start_x = False
         self.move()
-        for i, entity in enumerate(GAME.enemies):  # bez range sie krzaczy przy usuwaniu entity (24 linia)
+        # bez range sie krzaczy przy usuwaniu entity (24 linia)
+        for i, entity in enumerate(GAME.enemies):
             # tutaj zmienia sie poziom trudnosci
-            if entity.check_bullet(self):  # TODO: powinnismy rozrozniac width gracza i wroga, chyba?
+            # TODO: powinnismy rozrozniac width gracza i wroga, chyba?
+            if entity.check_bullet(self):
                 self.exists = False
                 if self.velocity > 0:
                     del GAME.enemies[i]

@@ -25,7 +25,8 @@ class EnemyField:
         remainder_x = self.field_width % self.enemy_width
         remainder_y = self.field_height % self.enemy_height
         how_many_x = int((self.field_width - remainder_x) / (self.enemy_width))
-        how_many_y = int((self.field_height - remainder_y) / (self.enemy_height))
+        how_many_y = int((self.field_height - remainder_y) /
+                         (self.enemy_height))
 
         if how_many_x % 2 == 0:
             how_many_x /= 2
@@ -48,7 +49,8 @@ class EnemyField:
         for _ in range(int(how_many_y)):
             field_offset_x = self.start_x + self.offset_x
             for _ in range(int(how_many_x)):
-                enemies.append(enemy_ship.EnemyShip(field_offset_x, field_offset_y, self.enemy_width, self.model))
+                enemies.append(enemy_ship.EnemyShip(
+                    field_offset_x, field_offset_y, self.enemy_width, self.model))
                 field_offset_x += 2*self.enemy_width
             field_offset_y += 2*self.enemy_height
         return enemies
@@ -66,7 +68,8 @@ class EnemyField:
         for entity in range(0, len(enemies)):
             if enemies[entity].s_x < min_x:
                 min_x = enemies[entity].s_x
-            if enemies[entity].s_x > max_x:  # musi byc if a nie elif, bo jesli zawsze bedzie true w 1szym, to nie ustawi max_x
+            # musi byc if a nie elif, bo jesli zawsze bedzie true w 1szym, to nie ustawi max_x
+            if enemies[entity].s_x > max_x:
                 max_x = enemies[entity].s_x
             if enemies[entity].s_y < min_y:
                 min_y = enemies[entity].s_y
@@ -74,12 +77,14 @@ class EnemyField:
                 max_y = enemies[entity].s_y
         return min_x, max_x, min_y, max_y
 
-    def find_shooter(self, enemies, player):  # self nie jest uzywany, wiec czy funkcja powinna byc tu gdzie jest?
+    # self nie jest uzywany, wiec czy funkcja powinna byc tu gdzie jest?
+    def find_shooter(self, enemies, player):
         min_distance = float('Inf')
         min_index = -1
 
         for entity in range(0, len(enemies)):
-            current_distance = enemies[entity].distance_from_player(player.s_x, player.s_y, player.width)
+            current_distance = enemies[entity].distance_from_player(
+                player.s_x, player.s_y, player.width)
             if current_distance <= min_distance:
                 min_distance = current_distance
                 min_index = entity
@@ -92,9 +97,11 @@ class EnemyField:
         if len(enemies) > 1:  # update pola field'a
             min_x, max_x, min_y, max_y = self.find_entity_extremes(enemies)
             self.start_x = min_x - self.offset_x
-            self.field_width = round(max_x - self.start_x + enemies[1].width) + self.offset_x
+            self.field_width = round(
+                max_x - self.start_x + enemies[1].width) + self.offset_x
             self.start_y = min_y - self.offset_y
-            self.field_height = round(max_y - self.start_y + enemies[1].width) + self.offset_y
+            self.field_height = round(
+                max_y - self.start_y + enemies[1].width) + self.offset_y
         else:
             self.exists = False
         if self.check_walls(screen_x):

@@ -6,7 +6,6 @@ from task import Task
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 0)
 
-pygame.init()
 GAME = Game()
 
 
@@ -33,10 +32,13 @@ def event_catch():
 def draw_objects():
     for bullet in GAME.bullets:
         if bullet is not None:
-            GAME.game_display.blit(bullet.bullet_model, [bullet.x_pos, bullet.y_pos])
-    GAME.game_display.blit(GAME.player.player_model, [GAME.player.s_x, GAME.player.s_y, GAME.player.width, GAME.player.width])
+            GAME.game_display.blit(bullet.bullet_model, [
+                                   bullet.x_pos, bullet.y_pos])
+    GAME.game_display.blit(GAME.player.player_model, [
+                           GAME.player.s_x, GAME.player.s_y, GAME.player.width, GAME.player.width])
     for enemy in range(0, len(GAME.enemies)):
-        GAME.game_display.blit(GAME.enemies[enemy].enemy_model, [GAME.enemies[enemy].s_x, GAME.enemies[enemy].s_y, GAME.enemies[enemy].width, GAME.enemies[enemy].width])
+        GAME.game_display.blit(GAME.enemies[enemy].enemy_model, [
+                               GAME.enemies[enemy].s_x, GAME.enemies[enemy].s_y, GAME.enemies[enemy].width, GAME.enemies[enemy].width])
         if GAME.enemies[enemy].check_player(GAME.player):
             GAME.points = 0
             GAME.game_end = True
@@ -55,6 +57,8 @@ def check_bullet_condition():
                     del GAME.bullets[i]
                 else:
                     GAME.bullets[i] = None
+    if not GAME.bullets[0] is None and GAME.bullets[0].y_pos <= 0:
+        GAME.bullets[0] = None
 
 
 def check_field_existence():
@@ -85,7 +89,8 @@ def init_tasks():
     tasks = []
     enemy_shoot_interval = 1  # 0.65
     enemy_shot_offset = (0, 0.5)  # 0.2
-    tasks.append(Task("enemy shot", enemy_shoot_interval, enemy_shot_offset, GAME.tickrate))
+    tasks.append(Task("enemy shot", enemy_shoot_interval,
+                      enemy_shot_offset, GAME.tickrate))
     return tasks
 
 
@@ -124,7 +129,6 @@ def progress_game(tasks):
 
 
 def game_loop():
-
     menu.menu(GAME)
 
     # Initialize tasks

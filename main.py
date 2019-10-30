@@ -3,7 +3,9 @@
 import pygame
 import main_game
 
+# pylint: disable=no-member
 pygame.init()
+
 
 def main():
 
