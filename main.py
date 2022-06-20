@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import main_game
+from game_exit import GameExit
 from resources import Resources
 
 from moviepy.editor import *
@@ -17,8 +18,13 @@ def play_first_intro() -> None:
 
 def main():
     play_first_intro()
-    main_game.game_loop()
-    pygame.quit()
+
+    game_exit = GameExit.FALSE
+
+    while game_exit is not GameExit.TO_DESKTOP:
+        main_game.restart_game()
+        game_exit = main_game.game_loop()
+
     quit()
 
 

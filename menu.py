@@ -1,6 +1,7 @@
 import pygame
 import settings
 from button import Button
+from game_exit import GameExit
 
 
 def menu(GAME):
@@ -84,10 +85,10 @@ def check_mouse(GAME, menu_exit, key_RED, key_GREEN):
 
 def check_click(choice, GAME):
     if choice == 0:
-        GAME.game_exit = False
+        GAME.game_exit = GameExit.FALSE
         return True
     elif choice == 1:
-        GAME.game_exit = True
+        GAME.game_exit = GameExit.TO_DESKTOP
         return True
     elif choice == 2:
         settings.settings_loop(GAME)

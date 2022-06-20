@@ -2,6 +2,7 @@ import os
 import pygame
 import menu
 from game import Game
+from game_exit import GameExit
 from task import Task
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 0)
@@ -12,20 +13,24 @@ GAME = Game()
 def event_catch():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            GAME.game_exit = True
-        if event.type == pygame.KEYDOWN:
+            GAME.game_exit = GameExit.TO_DESKTOP
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 GAME.player.add_velocity(-2.5)
-            if event.key == pygame.K_d:
+            elif event.key == pygame.K_d:
                 GAME.player.add_velocity(2.5)
-            if event.key == pygame.K_RETURN and GAME.bullets[0] is None and not GAME.game_end:
+            elif event.key == pygame.K_RETURN and GAME.bullets[0] is None and not GAME.game_end:
                 GAME.bullets[0] = GAME.player.shoot()
-            if event.key == pygame.K_q:
-                GAME.game_exit = True
-        if event.type == pygame.KEYUP and not GAME.game_end:
+            elif event.key == pygame.K_q:
+                GAME.game_exit = GameExit.TO_DESKTOP
+            # quit is for the Escape key
+            elif event.key == pygame.K_ESCAPE:
+                GAME.game_exit = GameExit.TO_MENU
+
+        elif event.type == pygame.KEYUP and not GAME.game_end:
             if event.key == pygame.K_a:
                 GAME.player.add_velocity(2.5)
-            if event.key == pygame.K_d:
+            elif event.key == pygame.K_d:
                 GAME.player.add_velocity(-2.5)
 
 
@@ -128,13 +133,13 @@ def progress_game(tasks):
         check_bullet_condition()
 
 
-def game_loop():
+def game_loop() -> GameExit:
     menu.menu(GAME)
 
     # Initialize tasks
     tasks = init_tasks()
 
-    while not GAME.game_exit:
+    while GAME.game_exit is GameExit.FALSE:
 
         # Event-catching loop
         event_catch()
@@ -151,3 +156,10 @@ def game_loop():
         pygame.display.update()
         GAME.clock.tick(GAME.tickrate)
         # print(GAME.clock)
+
+    return GAME.game_exit
+
+
+def restart_game() -> None:
+    global GAME
+    GAME = Game()

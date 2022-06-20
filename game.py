@@ -1,6 +1,7 @@
 import pygame
 import player_ship
 import enemy_field
+from game_exit import GameExit
 from resources import Resources
 
 
@@ -40,7 +41,7 @@ class Game:
         self.label_game_lost = self.myfont.render("Git gud n00b", 1, (0, 0, 0))
 
         # Set booleans
-        self.game_exit = False
+        self.game_exit = GameExit.FALSE
         self.game_end = False
         self.game_won = False
         self.game_lost = False
