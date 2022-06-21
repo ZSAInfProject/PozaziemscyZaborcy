@@ -1,6 +1,4 @@
 from math import ceil
-from random import uniform
-from pygame import draw  # do usunięcia na koniec (TODO)
 import enemy_ship
 
 

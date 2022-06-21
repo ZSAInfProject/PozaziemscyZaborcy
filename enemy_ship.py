@@ -9,8 +9,8 @@ import resources
 class EnemyShip(ship.Ship):
 
     def __init__(self, given_x, given_y, given_width, model):
-        self.s_x = given_x
-        self.s_y = given_y
+        super().__init__(given_x, given_y)
+
         self.width = given_width
         self.height = self.width
         self.is_enemy = True

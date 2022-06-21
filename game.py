@@ -10,7 +10,7 @@ class Game:
         resources = Resources()
 
         self.player = player_ship.PlayerShip(
-            220, 0.9*self.screen_y-self.width, resources.playership_model)
+            220, 0.9 * self.screen_y - self.width, resources.playership_model)
         self.enemies = []
         self.field = enemy_field.EnemyField(
             self.screen_x, resources.matej_model, resources.bullet_model)

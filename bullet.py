@@ -1,7 +1,6 @@
-from pygame import draw, image, transform
+from pygame import transform
 from math import sqrt
 from resources import Resources
-import os
 
 
 class Bullet:
@@ -22,15 +21,16 @@ class Bullet:
         self.bullet_model = transform.scale(
             Resources.bullet_model, (self.width, self.height))
 
+        self.original_velocity = force
+
     def find_player_start_x(self, player):
         player = player
-        p_x = player.s_x + player.width/2
         diff_y = player.s_y - self.y_pos - self.height/2
         diff_x = player.s_x + player.width/2 - self.x_pos
         if self.velocity < 0:
             diff_xy = sqrt(diff_x**2 + diff_y**2)
-            self.direction = -diff_x/(diff_xy)
-            self.velocity = -diff_y/(diff_xy)
+            self.direction = -diff_x / diff_xy
+            self.velocity = max(-diff_y / diff_xy, self.original_velocity)
 
     def move(self):
         self.y_pos -= self.velocity
