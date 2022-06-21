@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import datetime
+import os
 import random
+from datetime import time
 from enum import Enum, auto
 
 from pygame import transform, Surface
@@ -13,6 +16,7 @@ from boss_bullet import BossBullet
 # this inspection is an error in PyCharm when dealing with auto
 # noinspection PyArgumentList
 from player_ship import PlayerShip
+
 
 # this inspection is an error in PyCharm when dealing with auto
 # noinspection PyArgumentList
@@ -42,14 +46,14 @@ class BossDirection(Enum):
 
 
 class BossStateMachine:
-    IDLING_BASE_DURATION: int = 360
-    IDLING_BASE_VARIATION: int = 120
+    IDLING_BASE_DURATION: int = 50
+    IDLING_BASE_VARIATION: int = 15
 
     SHOOTING_BASE_COUNT: int = 3
     SHOOTING_BASE_VARIATION: int = 1
-    SHOOTING_COOLDOWN: int = 30
+    SHOOTING_COOLDOWN: int = 50
 
-    MOVING_DISTANCE: int = 150
+    MOVING_DISTANCE: int = 200
 
     def __init__(self) -> None:
         super().__init__()
@@ -92,6 +96,8 @@ class BossStateMachine:
 
                 self.current_state = BossState.IDLING
             case BossState.SLAMMING if self.slamming_done:
+                self.slamming_done = False
+
                 self.current_state = BossState.IDLING
             case BossState.MOVING if self.moving_current_distance == self.MOVING_DISTANCE:
                 self.moving_current_distance = 0
@@ -131,8 +137,8 @@ class SlammingDirection(Enum):
         return random.choice([cls.LEFT, cls.MIDDLE, cls.RIGHT])
 
 class BossShip(ship.Ship):
-    MOVING_VELOCITY: float = 2.5
-    SLAMMING_VELOCITY: float = 10
+    MOVING_VELOCITY: float = 4
+    SLAMMING_VELOCITY: float = 12
 
     def __init__(self, given_x: float, given_y: float, given_width: int, boss_model: Surface, player: PlayerShip,
                  screen_x: int, screen_y: int):
@@ -143,7 +149,7 @@ class BossShip(ship.Ship):
         self.is_enemy: bool = True
         self.enemy_model: Surface = transform.scale(boss_model, (self.width, self.height))
         self.state_machine: BossStateMachine = BossStateMachine()
-        self.bullets: list[BossBullet] = []
+        self.bullets = []
 
         self.player = player
         self.screen_x = screen_x
@@ -157,11 +163,14 @@ class BossShip(ship.Ship):
         self.exists = True
 
     def shoot(self):
-        return boss_bullet.BossBullet(
+        self.bullets.append(boss_bullet.BossBullet(
             self.s_x, self.s_y + self.width, -4545, self.width * 0.1, self.bullet_width, self.bullet_height,
-            self.player, self.screen_y)
+            self.player, self.screen_y))
 
     def update(self) -> None:
+        # if self.state_machine.current_state == BossState.SLAMMING:
+        #     print(self.state_machine.current_state, datetime.datetime.now())
+
         self.state_machine.update()
 
         for bullet in self.bullets:
@@ -203,37 +212,37 @@ class BossShip(ship.Ship):
                         self.slamming_direction = SlammingDirection.get_random_slamming_direction()
                     case SlammingDirection.LEFT:
                         if self.s_x == self.width / 2:
-                            if self.s_y >= self.screen_y - self.width / 2:
-                            # if self.s_y >= self.screen_y:
+                            if self.s_y >= self.screen_y - self.width:
                                 self.s_x = self.original_x
                                 self.s_y = self.original_y
 
                                 self.state_machine.slamming_done = True
+                                self.slamming_direction = SlammingDirection.get_random_slamming_direction()
                             else:
-                                self.s_y = min(self.screen_y - self.width / 2, self.s_y + BossShip.SLAMMING_VELOCITY)
+                                self.s_y = min(float(self.screen_y - self.width), self.s_y + BossShip.SLAMMING_VELOCITY)
                         else:
                             self.s_x = max(self.width / 2, self.s_x - BossShip.SLAMMING_VELOCITY)
                     case SlammingDirection.RIGHT:
                         if self.s_x == self.screen_x - self.width / 2:
-                            if self.s_y == self.screen_y - self.width / 2:
-                            # if self.s_y == self.screen_y:
+                            if self.s_y == self.screen_y - self.width:
                                 self.s_x = self.original_x
                                 self.s_y = self.original_y
 
                                 self.state_machine.slamming_done = True
+                                self.slamming_direction = SlammingDirection.get_random_slamming_direction()
                             else:
-                                self.s_y = min(self.screen_y - self.width / 2, self.s_y + BossShip.SLAMMING_VELOCITY)
+                                self.s_y = min(float(self.screen_y - self.width), self.s_y + BossShip.SLAMMING_VELOCITY)
                         else:
                             self.s_x = min(self.screen_x - self.width / 2, self.s_x + BossShip.SLAMMING_VELOCITY)
                     case SlammingDirection.MIDDLE:
-                        if self.s_y == self.screen_y - self.width / 2:
-                        # if self.s_y == self.screen_y:
+                        if self.s_y == self.screen_y - self.width:
                             self.s_x = self.original_x
                             self.s_y = self.original_y
 
                             self.state_machine.slamming_done = True
+                            self.slamming_direction = SlammingDirection.get_random_slamming_direction()
                         else:
-                            self.s_y = min(self.screen_y - self.width / 2, self.s_y + BossShip.SLAMMING_VELOCITY)
+                            self.s_y = min(float(self.screen_y - self.width), self.s_y + BossShip.SLAMMING_VELOCITY)
 
     def damage(self):
         self.health -= 1
@@ -251,7 +260,7 @@ class BossShip(ship.Ship):
 
         for i in reversed(range(len(self.bullets))):
             if not self.bullets[i].exists:
-                del self.bullets
+                del self.bullets[i]
 
     def check_player(self, player):  # wykraczy sie jesli kiedykolwiek gracz/enemy nie bedzie kwadratem
         if ((self.s_x <= player.s_x <= self.s_x + self.width) or (self.s_x <= player.s_x + player.width <= self.s_x + self.width)) and \

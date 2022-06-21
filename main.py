@@ -16,9 +16,10 @@ def play_first_intro() -> None:
 
 
 def main():
-    play_first_intro()
-
-    # main_game.play_first_level()
+    # play_first_intro()
+    #
+    # is_won = main_game.play_first_level()
+    # if is_won:
     main_game.boss_level_loop()
 
     quit()

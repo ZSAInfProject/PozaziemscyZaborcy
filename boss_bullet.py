@@ -9,6 +9,7 @@ class BossBullet(Bullet):
 
         self.player: PlayerShip = player
         self.screen_y: int = screen_y
+        self.die_timer: int = 0
 
     def update(self) -> None:
         # called every update so that it homes
@@ -20,4 +21,9 @@ class BossBullet(Bullet):
             self.player.damage()
             self.exists = False
         elif self.y_pos <= 0 or self.y_pos >= self.screen_y:
+            self.exists = False
+
+        # die after 400 ticks
+        self.die_timer += 1
+        if self.die_timer == 400:
             self.exists = False

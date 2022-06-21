@@ -5,8 +5,8 @@ import enemy_ship
 class EnemyField:
     start_x = 50
     start_y = 50
-    field_width = 100
-    field_height = 400
+    field_width = 100 / 2
+    field_height = 400 / 2
     enemy_width = enemy_ship.EnemyShip.width
     enemy_height = enemy_width
     velocity = 1.5  # 0.65

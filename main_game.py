@@ -125,7 +125,7 @@ def draw_game_lost():
 
 def init_tasks():
     tasks = []
-    enemy_shoot_interval = 1  # 0.65
+    enemy_shoot_interval = 2  # 0.65
     enemy_shot_offset = (0, 0.5)  # 0.2
     tasks.append(Task("enemy shot", enemy_shoot_interval,
                       enemy_shot_offset, GAME.tickrate))
@@ -215,6 +215,8 @@ def boss_handle_events(player_actions: list[PlayerAction], player: player_ship.P
 
 
 def boss_level_loop() -> GameExit:
+    GAME = Game()
+
     screen_x = GAME.screen_x
     screen_y = GAME.screen_y
     player_x = 220
@@ -242,22 +244,22 @@ def boss_level_loop() -> GameExit:
         if game_exit != game_exit.FALSE:
             return game_exit
 
-        # update entities (they update their bullets)
-        player.update()
-        boss.update()
-
-        # draw entities
-        player.draw_for_boss(game_display)
-        boss.draw_for_boss(game_display)
-
-        # see if enemy touches player
-        boss.check_player(player)
-
         # check if game won / lost
         if not boss.exists:
             GAME.game_display.blit(GAME.label_game_won, (200, 220))
         elif not player.exists:
             GAME.game_display.blit(GAME.label_game_lost, (200, 220))
+        else:
+            # update entities (they update their bullets)
+            player.update()
+            boss.update()
+
+            # draw entities
+            player.draw_for_boss(game_display)
+            boss.draw_for_boss(game_display)
+
+            # see if enemy touches player
+            boss.check_player(player)
 
         # Update the display, maintain stable framerate
         pygame.display.update()
@@ -278,4 +280,5 @@ def play_first_level():
         restart_game()
         game_exit = first_level_loop()
 
+    return GAME.game_won
 
